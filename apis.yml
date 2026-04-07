@@ -7,7 +7,6 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - API
   - Gift Cards
   - Payments
 url: >-
@@ -23,8 +22,7 @@ apis:
       integrating Reloadly API, your business will be able to quickly transfer
       Gift Cards to people worldwide.
     humanURL: https://www.reloadly.com/products/gift-card-api
-    tags:
-      - API
+    tags: []
     properties:
       - type: Documentation
         url: https://www.reloadly.com/products/gift-card-api
