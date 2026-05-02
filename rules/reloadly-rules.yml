@@ -1,0 +1,104 @@
+rules:
+  reloadly-operation-ids-camel-case:
+    description: Operation IDs must use camelCase
+    message: "Operation ID '{{value}}' must use camelCase"
+    severity: error
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  reloadly-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 -]*$"
+
+  reloadly-tags-required:
+    description: Every operation must have at least one tag
+    message: Operation must include at least one tag
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  reloadly-bearer-auth-required:
+    description: API must define bearerAuth security scheme
+    message: API must use Bearer token authentication
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      field: bearerAuth
+      function: truthy
+
+  reloadly-pagination-parameters:
+    description: Collection endpoints must support page and size parameters
+    message: GET collection endpoints should include page and size query parameters
+    severity: warn
+    given: "$.paths[*].get"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  reloadly-error-response-defined:
+    description: Operations must define 401 error responses
+    message: Operation must define a 401 Unauthorized response
+    severity: error
+    given: "$.paths[?(!/@oauth)][*]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - '401'
+
+  reloadly-response-200-schema:
+    description: Successful responses must have a schema
+    message: 200/201 response must include a content schema
+    severity: warn
+    given: "$.paths[*][*].responses[200,201].content.application/json"
+    then:
+      field: schema
+      function: truthy
+
+  reloadly-request-body-schema:
+    description: POST/PUT request bodies must have schemas
+    message: POST/PUT operations must define a requestBody schema
+    severity: error
+    given: "$.paths[*][post,put].requestBody.content.application/json"
+    then:
+      field: schema
+      function: truthy
+
+  reloadly-audience-parameter:
+    description: Token request must include audience parameter
+    message: OAuth token request must include the audience parameter
+    severity: error
+    given: "$.paths['/oauth/token'].post.requestBody.content.application/json.schema.required"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            const: audience
+
+  reloadly-path-kebab-case:
+    description: Path segments must use kebab-case
+    message: "Path segment '{{value}}' must use kebab-case"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9{}-]+)+$"

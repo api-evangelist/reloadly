@@ -1,0 +1,571 @@
+openapi: 3.1.0
+info:
+  title: Reloadly Airtime API
+  description: >-
+    The Reloadly Airtime API enables businesses to programmatically deliver
+    mobile airtime top-ups and data bundles to phones across 170+ countries
+    and 800+ mobile operators. The API supports both operator-specific and
+    auto-detect top-ups, with real-time fulfillment and detailed transaction
+    reporting. Authentication uses OAuth 2.0 client credentials with separate
+    sandbox and production environments.
+  version: '1.0.0'
+  contact:
+    name: Reloadly Support
+    url: https://support.reloadly.com
+  termsOfService: https://www.reloadly.com/terms
+externalDocs:
+  description: Reloadly Airtime API Reference
+  url: https://docs.reloadly.com/airtime
+servers:
+  - url: https://topups.reloadly.com
+    description: Production Server
+  - url: https://topups-sandbox.reloadly.com
+    description: Sandbox Server
+tags:
+  - name: Authentication
+    description: Obtain OAuth 2.0 access tokens for API authorization.
+  - name: Operators
+    description: Browse mobile network operators and their coverage.
+  - name: Top-Ups
+    description: Send airtime top-ups to mobile phones worldwide.
+  - name: Transactions
+    description: List and retrieve top-up transaction history.
+  - name: Balance
+    description: Check your Reloadly account balance.
+security:
+  - bearerAuth: []
+paths:
+  /oauth/token:
+    post:
+      operationId: getAirtimeAccessToken
+      summary: Get Access Token
+      description: >-
+        Exchange your client credentials for an OAuth 2.0 bearer access token
+        for the Airtime API. Set audience to https://topups.reloadly.com.
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: Access token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operators:
+    get:
+      operationId: listOperators
+      summary: List Operators
+      description: >-
+        Retrieve a paginated list of supported mobile network operators.
+        Supports filtering by country code. Returns operator details including
+        name, country, supported denominations, and FX rates.
+      tags:
+        - Operators
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - name: countryCode
+          in: query
+          description: Filter by ISO 3166-1 alpha-2 country code
+          schema:
+            type: string
+            example: US
+        - name: includeBundles
+          in: query
+          description: Include data bundle operators
+          schema:
+            type: boolean
+        - name: includeData
+          in: query
+          description: Include data-only operators
+          schema:
+            type: boolean
+        - name: includePin
+          in: query
+          description: Include PIN-based top-up operators
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Paginated list of operators
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatorsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operators/{operatorId}:
+    get:
+      operationId: getOperator
+      summary: Get Operator
+      description: >-
+        Retrieve details for a specific mobile network operator including
+        coverage, denominations, and FX exchange rate.
+      tags:
+        - Operators
+      parameters:
+        - name: operatorId
+          in: path
+          required: true
+          description: Unique identifier of the operator
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operator details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /operators/auto-detect/phone/{phone}/countries/{countryCode}:
+    get:
+      operationId: autoDetectOperator
+      summary: Auto-Detect Operator
+      description: >-
+        Automatically detect the mobile network operator for a phone number
+        in a given country. Returns the detected operator with confidence score.
+      tags:
+        - Operators
+      parameters:
+        - name: phone
+          in: path
+          required: true
+          description: Phone number in E.164 format (without leading +)
+          schema:
+            type: string
+            example: '12025551234'
+        - name: countryCode
+          in: path
+          required: true
+          description: ISO 3166-1 alpha-2 country code
+          schema:
+            type: string
+            example: US
+        - name: suggestedAmounts
+          in: query
+          description: Include suggested top-up amounts
+          schema:
+            type: boolean
+        - name: suggestedAmountsMap
+          in: query
+          description: Include suggested amounts as a map
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Detected operator
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /topups:
+    post:
+      operationId: sendTopUp
+      summary: Send Top-Up
+      description: >-
+        Send an airtime top-up to a mobile phone. Specify the operator ID
+        or let the API auto-detect it from the phone number and country.
+        Returns a transaction object with delivery confirmation.
+      tags:
+        - Top-Ups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopUpRequest'
+      responses:
+        '200':
+          description: Top-up sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUpTransaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /topups/transactions:
+    get:
+      operationId: listTopUpTransactions
+      summary: List Top-Up Transactions
+      description: >-
+        Retrieve a paginated list of all airtime top-up transactions.
+        Supports filtering by date range, phone number, and status.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - name: startDate
+          in: query
+          description: Filter from this date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: Filter to this date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Paginated list of top-up transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /topups/transactions/{transactionId}:
+    get:
+      operationId: getTopUpTransaction
+      summary: Get Top-Up Transaction
+      description: >-
+        Retrieve details for a specific airtime top-up transaction.
+      tags:
+        - Transactions
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          description: Unique transaction identifier
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUpTransaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/balance:
+    get:
+      operationId: getAirtimeBalance
+      summary: Get Account Balance
+      description: >-
+        Retrieve the current balance of your Reloadly account for airtime
+        top-ups.
+      tags:
+        - Balance
+      responses:
+        '200':
+          description: Account balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 bearer token obtained via the /oauth/token endpoint using
+        client credentials grant.
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+  schemas:
+    TokenRequest:
+      type: object
+      required:
+        - client_id
+        - client_secret
+        - grant_type
+        - audience
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          type: string
+          enum:
+            - client_credentials
+        audience:
+          type: string
+          example: https://topups.reloadly.com
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        scope:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
+          type: string
+    Operator:
+      type: object
+      properties:
+        operatorId:
+          type: integer
+          description: Unique operator identifier
+        name:
+          type: string
+          description: Operator display name
+        bundle:
+          type: boolean
+          description: Whether the operator offers data bundles
+        data:
+          type: boolean
+          description: Whether this is a data-only operator
+        pin:
+          type: boolean
+          description: Whether the operator uses PIN-based top-ups
+        denominationType:
+          type: string
+          enum:
+            - FIXED
+            - RANGE
+        localFixedAmounts:
+          type: array
+          items:
+            type: number
+          description: Available fixed amounts in local currency
+        internationalFixedAmounts:
+          type: array
+          items:
+            type: number
+          description: Available fixed amounts in international currency
+        localMinAmount:
+          type: number
+          description: Minimum top-up in local currency (range products)
+        localMaxAmount:
+          type: number
+          description: Maximum top-up in local currency (range products)
+        internationalMinAmount:
+          type: number
+          description: Minimum top-up in international currency (range products)
+        internationalMaxAmount:
+          type: number
+          description: Maximum top-up in international currency (range products)
+        country:
+          $ref: '#/components/schemas/Country'
+        fxRate:
+          $ref: '#/components/schemas/FxRate'
+        logoUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: Operator logo image URLs
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+    FxRate:
+      type: object
+      properties:
+        currencyCode:
+          type: string
+          description: Local currency code
+        rate:
+          type: number
+          format: double
+          description: Exchange rate from USD to local currency
+    TopUpRequest:
+      type: object
+      required:
+        - operatorId
+        - amount
+        - useLocalAmount
+        - customIdentifier
+        - recipientPhone
+        - senderPhone
+      properties:
+        operatorId:
+          type: integer
+          description: Target mobile network operator ID
+        amount:
+          type: number
+          format: double
+          description: Top-up amount
+        useLocalAmount:
+          type: boolean
+          description: Whether amount is in local currency or international (USD)
+        customIdentifier:
+          type: string
+          description: Custom reference identifier for tracking
+        recipientPhone:
+          $ref: '#/components/schemas/Phone'
+        senderPhone:
+          $ref: '#/components/schemas/Phone'
+    Phone:
+      type: object
+      required:
+        - countryCode
+        - number
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        number:
+          type: string
+          description: Phone number in E.164 format (without leading +)
+    TopUpTransaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+        status:
+          type: string
+          enum:
+            - SUCCESSFUL
+            - REFUNDED
+            - FAILED
+        operatorTransactionId:
+          type: string
+          description: Transaction ID from the mobile operator
+        customIdentifier:
+          type: string
+        recipientPhone:
+          type: string
+        recipientEmail:
+          type: string
+        senderPhone:
+          type: string
+        countryCode:
+          type: string
+        operatorId:
+          type: integer
+        operatorName:
+          type: string
+        discount:
+          type: number
+        discountCurrencyCode:
+          type: string
+        requestedAmount:
+          type: number
+        requestedAmountCurrencyCode:
+          type: string
+        deliveredAmount:
+          type: number
+        deliveredAmountCurrencyCode:
+          type: string
+        transactionDate:
+          type: string
+          format: date-time
+    Balance:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: double
+        currencyCode:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    OperatorsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operator'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    TransactionsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopUpTransaction'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

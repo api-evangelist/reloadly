@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://api-evangelist.github.io/reloadly/json-schema/reloadly-order-schema.json",
+  "title": "Reloadly Gift Card Order",
+  "description": "A gift card order placed through the Reloadly Gift Cards API",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "integer",
+      "description": "Unique transaction identifier"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Amount charged for the order"
+    },
+    "discount": {
+      "type": "number",
+      "description": "Discount amount applied"
+    },
+    "currencyCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code for the transaction"
+    },
+    "fee": {
+      "type": "number",
+      "description": "Processing fee charged"
+    },
+    "recipientEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the gift card recipient"
+    },
+    "customIdentifier": {
+      "type": "string",
+      "description": "Custom reference identifier provided at order time"
+    },
+    "status": {
+      "type": "string",
+      "description": "Order fulfillment status"
+    },
+    "product": {
+      "$ref": "reloadly-product-schema.json",
+      "description": "The ordered gift card product"
+    },
+    "smiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GiftCard"
+      },
+      "description": "Gift card codes delivered in this order"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Order placement timestamp"
+    }
+  },
+  "required": ["transactionId", "status"],
+  "$defs": {
+    "GiftCard": {
+      "type": "object",
+      "description": "A delivered digital gift card",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Gift card redemption code"
+        },
+        "pinCode": {
+          "type": ["string", "null"],
+          "description": "PIN code required for redemption (if applicable)"
+        },
+        "validity": {
+          "type": ["string", "null"],
+          "description": "Expiration date or validity period"
+        }
+      },
+      "required": ["code"]
+    }
+  }
+}

@@ -1,0 +1,676 @@
+openapi: 3.1.0
+info:
+  title: Reloadly Gift Cards API
+  description: >-
+    The Reloadly Gift Cards API enables businesses to discover, order, and
+    manage digital gift cards across 3,000+ global brands and 14,000+ products
+    in 140+ countries. The API supports multi-currency payouts in USD, EUR, CAD,
+    and GBP with real-time order fulfillment. Authentication uses OAuth 2.0
+    client credentials with separate sandbox and production environments.
+  version: '1.0.0'
+  contact:
+    name: Reloadly Support
+    url: https://support.reloadly.com
+  termsOfService: https://www.reloadly.com/terms
+externalDocs:
+  description: Reloadly Gift Cards API Reference
+  url: https://docs.reloadly.com/gift-cards
+servers:
+  - url: https://giftcards.reloadly.com
+    description: Production Server
+  - url: https://giftcards-sandbox.reloadly.com
+    description: Sandbox Server
+tags:
+  - name: Authentication
+    description: Obtain OAuth 2.0 access tokens for API authorization.
+  - name: Products
+    description: Browse and search the gift card product catalog.
+  - name: Discounts
+    description: Retrieve discount rates available on gift card products.
+  - name: Orders
+    description: Place and manage gift card orders.
+  - name: Transactions
+    description: List and retrieve transaction history and details.
+  - name: Balance
+    description: Check your Reloadly account balance.
+security:
+  - bearerAuth: []
+paths:
+  /oauth/token:
+    post:
+      operationId: getAccessToken
+      summary: Get Access Token
+      description: >-
+        Exchange your client credentials for an OAuth 2.0 bearer access token.
+        Tokens are valid for 60 days in production and 24 hours in sandbox.
+        Use the audience parameter to specify which service the token is for.
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: Access token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /products:
+    get:
+      operationId: listProducts
+      summary: List Products
+      description: >-
+        Retrieve a paginated list of available gift card products. Supports
+        filtering by country, currency, and product category. Returns brand
+        details, denominations, discount rates, and redemption instructions.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - name: countryCode
+          in: query
+          description: Filter by ISO 3166-1 alpha-2 country code
+          schema:
+            type: string
+            example: US
+        - name: currencyCode
+          in: query
+          description: Filter by ISO 4217 currency code
+          schema:
+            type: string
+            example: USD
+        - name: includeRange
+          in: query
+          description: Include range-denomination products
+          schema:
+            type: boolean
+        - name: includeFixed
+          in: query
+          description: Include fixed-denomination products
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Paginated list of gift card products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /products/{productId}:
+    get:
+      operationId: getProduct
+      summary: Get Product
+      description: >-
+        Retrieve full details for a specific gift card product including
+        available denominations, discount rate, redemption instructions,
+        supported countries, and brand information.
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique identifier of the gift card product
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Gift card product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /discounts:
+    get:
+      operationId: listDiscounts
+      summary: List Discounts
+      description: >-
+        Retrieve available discount rates for all gift card products.
+        Returns the percentage discount applied to face value at purchase.
+      tags:
+        - Discounts
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+      responses:
+        '200':
+          description: Paginated list of product discounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /discounts/products/{productId}:
+    get:
+      operationId: getProductDiscount
+      summary: Get Product Discount
+      description: >-
+        Retrieve the discount rate for a specific gift card product.
+      tags:
+        - Discounts
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Unique identifier of the gift card product
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product discount details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /orders:
+    post:
+      operationId: placeOrder
+      summary: Place Order
+      description: >-
+        Place a gift card order for a specific product and denomination.
+        Successful orders return an order object with the gift card code,
+        PIN, and redemption instructions. Orders are fulfilled in real-time.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order placed and gift card delivered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /orders/{orderId}:
+    get:
+      operationId: getOrder
+      summary: Get Order
+      description: >-
+        Retrieve the details of a specific gift card order including the
+        gift card code, PIN, redemption instructions, and order status.
+      tags:
+        - Orders
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Unique identifier of the order
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List Transactions
+      description: >-
+        Retrieve a paginated list of all transactions on the account including
+        gift card orders, balance top-ups, and refunds. Supports filtering
+        by date range and transaction type.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - name: startDate
+          in: query
+          description: Filter transactions from this date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: Filter transactions to this date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Paginated list of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/balance:
+    get:
+      operationId: getBalance
+      summary: Get Account Balance
+      description: >-
+        Retrieve the current balance of your Reloadly account including
+        available balance and currency.
+      tags:
+        - Balance
+      responses:
+        '200':
+          description: Account balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 bearer token obtained via the /oauth/token endpoint using
+        client credentials grant. Tokens expire after 60 days in production.
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+  schemas:
+    TokenRequest:
+      type: object
+      required:
+        - client_id
+        - client_secret
+        - grant_type
+        - audience
+      properties:
+        client_id:
+          type: string
+          description: Your Reloadly API client ID
+        client_secret:
+          type: string
+          description: Your Reloadly API client secret
+        grant_type:
+          type: string
+          enum:
+            - client_credentials
+          description: OAuth 2.0 grant type
+        audience:
+          type: string
+          description: >-
+            The API audience URL for the service you are accessing
+            (e.g., https://giftcards.reloadly.com)
+          example: https://giftcards.reloadly.com
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The OAuth 2.0 bearer access token
+        scope:
+          type: string
+          description: Granted OAuth scopes
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+        token_type:
+          type: string
+          description: Token type (Bearer)
+    Product:
+      type: object
+      properties:
+        productId:
+          type: integer
+          description: Unique product identifier
+        productName:
+          type: string
+          description: Display name of the gift card product
+        global:
+          type: boolean
+          description: Whether the product is redeemable globally
+        supportsPreOrder:
+          type: boolean
+          description: Whether pre-ordering is supported
+        senderFee:
+          type: number
+          format: double
+          description: Fee charged to the sender
+        discountPercentage:
+          type: number
+          format: double
+          description: Discount percentage applied to the face value
+        denominationType:
+          type: string
+          enum:
+            - FIXED
+            - RANGE
+          description: Whether the product has fixed or range denominations
+        recipientCurrencyCode:
+          type: string
+          description: Currency code for the recipient
+        minRecipientDenomination:
+          type: number
+          description: Minimum denomination for range products
+        maxRecipientDenomination:
+          type: number
+          description: Maximum denomination for range products
+        senderCurrencyCode:
+          type: string
+          description: Currency code for the sender
+        minSenderDenomination:
+          type: number
+          description: Minimum sender denomination for range products
+        maxSenderDenomination:
+          type: number
+          description: Maximum sender denomination for range products
+        fixedRecipientDenominations:
+          type: array
+          items:
+            type: number
+          description: Available fixed denomination amounts for the recipient
+        fixedSenderDenominations:
+          type: array
+          items:
+            type: number
+          description: Available fixed denomination amounts for the sender
+        brand:
+          $ref: '#/components/schemas/Brand'
+        country:
+          $ref: '#/components/schemas/Country'
+        redeemInstruction:
+          $ref: '#/components/schemas/RedeemInstruction'
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
+    Discount:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        percentage:
+          type: number
+          format: double
+          description: Discount percentage on the face value
+    OrderRequest:
+      type: object
+      required:
+        - productId
+        - quantity
+        - unitPrice
+        - senderName
+        - recipientEmail
+      properties:
+        productId:
+          type: integer
+          description: ID of the gift card product to order
+        quantity:
+          type: integer
+          description: Number of gift cards to order
+          minimum: 1
+          maximum: 100
+        unitPrice:
+          type: number
+          format: double
+          description: Price per gift card in sender currency
+        customIdentifier:
+          type: string
+          description: Custom reference identifier for the order
+        senderName:
+          type: string
+          description: Name of the sender
+        recipientEmail:
+          type: string
+          format: email
+          description: Email address of the recipient
+        preOrder:
+          type: boolean
+          description: Whether to place a pre-order
+    Order:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Unique transaction identifier
+        amount:
+          type: number
+          format: double
+          description: Amount charged for the order
+        discount:
+          type: number
+          format: double
+          description: Discount amount applied
+        currencyCode:
+          type: string
+          description: Currency code for the transaction
+        fee:
+          type: number
+          format: double
+          description: Processing fee
+        recipientEmail:
+          type: string
+          format: email
+          description: Recipient email address
+        customIdentifier:
+          type: string
+          description: Custom identifier provided at order time
+        status:
+          type: string
+          description: Order status
+        product:
+          $ref: '#/components/schemas/Product'
+        smiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCard'
+          description: Array of gift card codes delivered
+        date:
+          type: string
+          format: date-time
+          description: Order timestamp
+    GiftCard:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Gift card redemption code
+        pinCode:
+          type: string
+          description: PIN code if required for redemption
+        validity:
+          type: string
+          description: Expiration date or validity information
+    Transaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Unique transaction identifier
+        amount:
+          type: number
+          format: double
+          description: Transaction amount
+        discount:
+          type: number
+          format: double
+          description: Discount applied
+        currencyCode:
+          type: string
+          description: Currency code
+        fee:
+          type: number
+          format: double
+          description: Processing fee
+        status:
+          type: string
+          description: Transaction status
+        product:
+          $ref: '#/components/schemas/Product'
+        date:
+          type: string
+          format: date-time
+          description: Transaction timestamp
+    Balance:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: double
+          description: Available account balance
+        currencyCode:
+          type: string
+          description: Currency code for the balance
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the balance was last updated
+    ProductsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    DiscountsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    TransactionsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

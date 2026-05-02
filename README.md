@@ -1,41 +1,70 @@
-# Reloadly (reloadly)
-A next generation technology API for digital Gift Cards. By simply integrating Reloadly API, your business will be able to quickly transfer Gift Cards to people worldwide.
+# Reloadly
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/reloadly/refs/heads/main/apis.yml)
+Reloadly is a global digital rewards and payments platform providing APIs for sending digital gift cards, airtime top-ups, and data bundles worldwide. The platform connects businesses to 3,000+ gift card brands across 14,000+ products in 140+ countries, and enables mobile airtime delivery across 800+ operators in 170+ countries.
 
-## Scope
+Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments. SDKs are available for Node.js, PHP, Python, Go, Java, and C#.
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+## Links
 
-## Tags:
-
- - API, Gift Cards, Payments
-
-## Timestamps
-
-- **Created:** 2025-02-08 
-- **Modified:** 2026-03-16 
+- **Website:** https://www.reloadly.com
+- **Documentation:** https://docs.reloadly.com
+- **Dashboard:** https://dashboard.reloadly.com
+- **GitHub:** https://github.com/reloadly
+- **Support:** https://support.reloadly.com
 
 ## APIs
 
-### Reloadly
-A next generation technology API for digital Gift Cards. By simply integrating Reloadly API, your business will be able to quickly transfer Gift Cards to people worldwide.
+### Gift Cards API
+- **Base URL (Production):** https://giftcards.reloadly.com
+- **Base URL (Sandbox):** https://giftcards-sandbox.reloadly.com
+- **Documentation:** https://docs.reloadly.com/gift-cards
+- **OpenAPI:** [openapi/reloadly-gift-cards-openapi.yml](openapi/reloadly-gift-cards-openapi.yml)
 
-**Human URL:** [https://www.reloadly.com/products/gift-card-api](https://www.reloadly.com/products/gift-card-api)
+### Airtime API
+- **Base URL (Production):** https://topups.reloadly.com
+- **Base URL (Sandbox):** https://topups-sandbox.reloadly.com
+- **Documentation:** https://docs.reloadly.com/airtime
+- **OpenAPI:** [openapi/reloadly-airtime-openapi.yml](openapi/reloadly-airtime-openapi.yml)
 
+## Authentication
 
-#### Tags:
+All APIs use OAuth 2.0 client credentials:
 
- - API
+```
+POST https://auth.reloadly.com/oauth/token
+{
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET",
+  "grant_type": "client_credentials",
+  "audience": "https://giftcards.reloadly.com"
+}
+```
 
-#### Properties
+Tokens are valid 60 days (production) or 24 hours (sandbox).
 
-- [Documentation](https://www.reloadly.com/products/gift-card-api)
+## Artifacts
 
-## Maintainers
+| Type | File |
+|---|---|
+| OpenAPI (Gift Cards) | [openapi/reloadly-gift-cards-openapi.yml](openapi/reloadly-gift-cards-openapi.yml) |
+| OpenAPI (Airtime) | [openapi/reloadly-airtime-openapi.yml](openapi/reloadly-airtime-openapi.yml) |
+| JSON Schema (Product) | [json-schema/reloadly-product-schema.json](json-schema/reloadly-product-schema.json) |
+| JSON Schema (Order) | [json-schema/reloadly-order-schema.json](json-schema/reloadly-order-schema.json) |
+| JSON Structure | [json-structure/reloadly-product-structure.json](json-structure/reloadly-product-structure.json) |
+| JSON-LD Context | [json-ld/reloadly-context.jsonld](json-ld/reloadly-context.jsonld) |
+| Spectral Rules | [rules/reloadly-rules.yml](rules/reloadly-rules.yml) |
+| Vocabulary | [vocabulary/reloadly-vocabulary.yml](vocabulary/reloadly-vocabulary.yml) |
 
-**FN:** Kin Lane
+## Capabilities
 
-**Email:** kin@apievangelist.com
+| Capability | Description |
+|---|---|
+| [digital-rewards.yaml](capabilities/digital-rewards.yaml) | Unified gift cards + airtime workflow for rewards programs |
+| [shared/gift-cards.yaml](capabilities/shared/gift-cards.yaml) | Gift Cards API shared definition |
+| [shared/airtime.yaml](capabilities/shared/airtime.yaml) | Airtime API shared definition |
+
+## Examples
+
+- [List Products](examples/reloadly-list-products-example.json)
+- [Place Order](examples/reloadly-place-order-example.json)
+- [Send Top-Up](examples/reloadly-send-topup-example.json)

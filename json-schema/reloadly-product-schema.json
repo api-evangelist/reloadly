@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://api-evangelist.github.io/reloadly/json-schema/reloadly-product-schema.json",
+  "title": "Reloadly Gift Card Product",
+  "description": "A gift card product available through the Reloadly Gift Cards API",
+  "type": "object",
+  "properties": {
+    "productId": {
+      "type": "integer",
+      "description": "Unique product identifier"
+    },
+    "productName": {
+      "type": "string",
+      "description": "Display name of the gift card product"
+    },
+    "global": {
+      "type": "boolean",
+      "description": "Whether the product is redeemable globally"
+    },
+    "supportsPreOrder": {
+      "type": "boolean",
+      "description": "Whether pre-ordering is supported"
+    },
+    "senderFee": {
+      "type": "number",
+      "description": "Fee charged to the sender"
+    },
+    "discountPercentage": {
+      "type": "number",
+      "description": "Discount percentage applied to the face value"
+    },
+    "denominationType": {
+      "type": "string",
+      "enum": ["FIXED", "RANGE"],
+      "description": "Whether the product has fixed or range denominations"
+    },
+    "recipientCurrencyCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code for the recipient"
+    },
+    "minRecipientDenomination": {
+      "type": ["number", "null"],
+      "description": "Minimum denomination for range products"
+    },
+    "maxRecipientDenomination": {
+      "type": ["number", "null"],
+      "description": "Maximum denomination for range products"
+    },
+    "senderCurrencyCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code for the sender"
+    },
+    "minSenderDenomination": {
+      "type": ["number", "null"],
+      "description": "Minimum sender denomination for range products"
+    },
+    "maxSenderDenomination": {
+      "type": ["number", "null"],
+      "description": "Maximum sender denomination for range products"
+    },
+    "fixedRecipientDenominations": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Fixed denomination amounts available for the recipient"
+    },
+    "fixedSenderDenominations": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Fixed denomination amounts for the sender"
+    },
+    "brand": {
+      "$ref": "#/$defs/Brand"
+    },
+    "country": {
+      "$ref": "#/$defs/Country"
+    },
+    "redeemInstruction": {
+      "$ref": "#/$defs/RedeemInstruction"
+    }
+  },
+  "required": ["productId", "productName", "denominationType"],
+  "$defs": {
+    "Brand": {
+      "type": "object",
+      "description": "Gift card brand information",
+      "properties": {
+        "brandId": {
+          "type": "integer",
+          "description": "Unique brand identifier"
+        },
+        "brandName": {
+          "type": "string",
+          "description": "Brand display name"
+        }
+      },
+      "required": ["brandId", "brandName"]
+    },
+    "Country": {
+      "type": "object",
+      "description": "Country information",
+      "properties": {
+        "isoName": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Country display name"
+        },
+        "flagUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the country flag image"
+        }
+      }
+    },
+    "RedeemInstruction": {
+      "type": "object",
+      "description": "Gift card redemption instructions",
+      "properties": {
+        "concise": {
+          "type": "string",
+          "description": "Brief redemption instructions"
+        },
+        "verbose": {
+          "type": "string",
+          "description": "Detailed redemption instructions"
+        }
+      }
+    }
+  }
+}

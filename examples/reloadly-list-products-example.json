@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://giftcards.reloadly.com/products?page=1&size=5&countryCode=US",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/com.reloadly.giftcards-v1+json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "content": [
+        {
+          "productId": 10,
+          "productName": "Amazon US",
+          "global": false,
+          "supportsPreOrder": false,
+          "senderFee": 0,
+          "discountPercentage": 0,
+          "denominationType": "FIXED",
+          "recipientCurrencyCode": "USD",
+          "minRecipientDenomination": null,
+          "maxRecipientDenomination": null,
+          "senderCurrencyCode": "USD",
+          "minSenderDenomination": null,
+          "maxSenderDenomination": null,
+          "fixedRecipientDenominations": [10, 25, 50, 100],
+          "fixedSenderDenominations": [10, 25, 50, 100],
+          "brand": {
+            "brandId": 3,
+            "brandName": "Amazon"
+          },
+          "country": {
+            "isoName": "US",
+            "name": "United States",
+            "flagUrl": "https://s3.amazonaws.com/rld-flags/us.svg"
+          },
+          "redeemInstruction": {
+            "concise": "Go to amazon.com/gc/redeem",
+            "verbose": "Visit amazon.com/gc/redeem and enter your gift card code at checkout."
+          }
+        }
+      ],
+      "totalElements": 1250,
+      "totalPages": 250,
+      "last": false,
+      "number": 0,
+      "size": 5
+    }
+  }
+}

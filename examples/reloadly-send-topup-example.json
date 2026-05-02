@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://topups.reloadly.com/topups",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/com.reloadly.topups-v1+json"
+    },
+    "body": {
+      "operatorId": 341,
+      "amount": 10,
+      "useLocalAmount": false,
+      "customIdentifier": "topup-2026-05-001",
+      "recipientPhone": {
+        "countryCode": "NG",
+        "number": "8012345678"
+      },
+      "senderPhone": {
+        "countryCode": "US",
+        "number": "5551234567"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transactionId": 12345,
+      "status": "SUCCESSFUL",
+      "operatorTransactionId": "OP-987654",
+      "customIdentifier": "topup-2026-05-001",
+      "recipientPhone": "+2348012345678",
+      "senderPhone": "+15551234567",
+      "countryCode": "NG",
+      "operatorId": 341,
+      "operatorName": "MTN Nigeria",
+      "discount": 0.5,
+      "discountCurrencyCode": "USD",
+      "requestedAmount": 10.00,
+      "requestedAmountCurrencyCode": "USD",
+      "deliveredAmount": 3850,
+      "deliveredAmountCurrencyCode": "NGN",
+      "transactionDate": "2026-05-02T10:35:00Z"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+vocabulary:
+  provider: Reloadly
+  description: >-
+    Domain vocabulary for digital gift card, airtime top-up, and rewards
+    distribution APIs at Reloadly.
+  terms:
+    - term: Gift Card
+      definition: >-
+        A digital prepaid card with a fixed or range denomination redeemable
+        at a specific brand or retailer. Delivered instantly as a code via
+        email or API response.
+      tags:
+        - Gift Cards
+        - Rewards
+
+    - term: Airtime Top-Up
+      definition: >-
+        The process of adding mobile phone credit to a prepaid account.
+        Delivered in real-time directly to the recipient's phone number.
+      tags:
+        - Airtime
+        - Mobile
+
+    - term: Data Bundle
+      definition: >-
+        A fixed allotment of mobile data (MB/GB) purchased and applied
+        directly to a mobile phone number via a network operator.
+      tags:
+        - Data
+        - Mobile
+
+    - term: Operator
+      definition: >-
+        A mobile network operator (MNO) or virtual network operator (MVNO)
+        that provides mobile voice and data services in a specific country.
+      tags:
+        - Airtime
+        - Operators
+
+    - term: Brand
+      definition: >-
+        A retailer or service provider whose gift cards are available through
+        the Reloadly catalog (e.g., Amazon, Apple, Netflix, Spotify, Uber).
+      tags:
+        - Gift Cards
+        - Brands
+
+    - term: Denomination
+      definition: >-
+        The face value of a gift card. Products may offer FIXED denominations
+        (e.g., $25, $50, $100) or a RANGE (e.g., $1-$500).
+      tags:
+        - Gift Cards
+        - Pricing
+
+    - term: Discount Percentage
+      definition: >-
+        The percentage below face value at which a gift card is purchased
+        from Reloadly. The partner pays (1 - discount%) of face value.
+      tags:
+        - Gift Cards
+        - Pricing
+
+    - term: Client Credentials
+      definition: >-
+        The OAuth 2.0 grant type used by Reloadly. The API consumer exchanges
+        client_id and client_secret for an access token via the auth server.
+      tags:
+        - Authentication
+        - Security
+
+    - term: Access Token
+      definition: >-
+        An OAuth 2.0 JWT bearer token issued by auth.reloadly.com. Valid for
+        60 days in production and 24 hours in sandbox. Required in the
+        Authorization header for all API calls.
+      tags:
+        - Authentication
+        - Security
+
+    - term: Audience
+      definition: >-
+        The target service URL passed during token request to scope the token
+        to a specific Reloadly API product (e.g., https://giftcards.reloadly.com).
+      tags:
+        - Authentication
+        - Security
+
+    - term: Sandbox
+      definition: >-
+        A testing environment provided by Reloadly that mirrors production
+        behavior without real fulfillment. Uses separate base URLs and
+        credentials (e.g., https://giftcards-sandbox.reloadly.com).
+      tags:
+        - Development
+        - Testing
+
+    - term: Custom Identifier
+      definition: >-
+        A partner-provided reference string attached to orders and top-ups
+        for internal tracking, reconciliation, and idempotency.
+      tags:
+        - Orders
+        - Tracking
+
+    - term: FX Rate
+      definition: >-
+        The foreign exchange rate applied when converting top-up amounts
+        between the sender's USD payment and the recipient's local currency.
+      tags:
+        - Currency
+        - Pricing
+
+    - term: Local Amount
+      definition: >-
+        The top-up value expressed in the recipient's local currency rather
+        than the sender's USD amount. Controlled by the useLocalAmount flag.
+      tags:
+        - Airtime
+        - Currency
+
+    - term: Perq Payout Link
+      definition: >-
+        Reloadly's payout link product that enables recipients to choose their
+        own reward from the Reloadly catalog via a shareable URL.
+      tags:
+        - Payouts
+        - Rewards
+
+    - term: Pre-Order
+      definition: >-
+        A gift card order placed before the product is in stock. Fulfilled
+        automatically when inventory becomes available.
+      tags:
+        - Gift Cards
+        - Orders

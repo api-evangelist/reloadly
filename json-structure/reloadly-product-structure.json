@@ -1,0 +1,48 @@
+{
+  "name": "Product",
+  "description": "Reloadly gift card product structure",
+  "fields": [
+    { "name": "productId", "type": "integer", "required": true, "description": "Unique product identifier" },
+    { "name": "productName", "type": "string", "required": true, "description": "Display name" },
+    { "name": "global", "type": "boolean", "required": false, "description": "Globally redeemable" },
+    { "name": "denominationType", "type": "string", "required": true, "enum": ["FIXED", "RANGE"], "description": "Denomination model" },
+    { "name": "recipientCurrencyCode", "type": "string", "required": false, "description": "Recipient currency (ISO 4217)" },
+    { "name": "senderCurrencyCode", "type": "string", "required": false, "description": "Sender currency (ISO 4217)" },
+    { "name": "discountPercentage", "type": "number", "required": false, "description": "Discount on face value" },
+    { "name": "fixedRecipientDenominations", "type": "array<number>", "required": false, "description": "Fixed amounts for recipient" },
+    { "name": "fixedSenderDenominations", "type": "array<number>", "required": false, "description": "Fixed amounts for sender" },
+    { "name": "minRecipientDenomination", "type": "number", "required": false, "description": "Range minimum (recipient)" },
+    { "name": "maxRecipientDenomination", "type": "number", "required": false, "description": "Range maximum (recipient)" },
+    {
+      "name": "brand",
+      "type": "object",
+      "required": false,
+      "description": "Brand information",
+      "fields": [
+        { "name": "brandId", "type": "integer", "required": true, "description": "Brand identifier" },
+        { "name": "brandName", "type": "string", "required": true, "description": "Brand display name" }
+      ]
+    },
+    {
+      "name": "country",
+      "type": "object",
+      "required": false,
+      "description": "Country information",
+      "fields": [
+        { "name": "isoName", "type": "string", "required": true, "description": "ISO 3166-1 alpha-2 country code" },
+        { "name": "name", "type": "string", "required": true, "description": "Country name" },
+        { "name": "flagUrl", "type": "string", "required": false, "description": "Flag image URL" }
+      ]
+    },
+    {
+      "name": "redeemInstruction",
+      "type": "object",
+      "required": false,
+      "description": "Redemption instructions",
+      "fields": [
+        { "name": "concise", "type": "string", "required": false, "description": "Brief redemption instructions" },
+        { "name": "verbose", "type": "string", "required": false, "description": "Detailed redemption instructions" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://giftcards.reloadly.com/orders",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/com.reloadly.giftcards-v1+json"
+    },
+    "body": {
+      "productId": 10,
+      "quantity": 1,
+      "unitPrice": 25,
+      "customIdentifier": "reward-2026-05-001",
+      "senderName": "Acme Corp Rewards",
+      "recipientEmail": "employee@example.com"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transactionId": 98765,
+      "amount": 25.00,
+      "discount": 0.00,
+      "currencyCode": "USD",
+      "fee": 0.00,
+      "recipientEmail": "employee@example.com",
+      "customIdentifier": "reward-2026-05-001",
+      "status": "SUCCESSFUL",
+      "product": {
+        "productId": 10,
+        "productName": "Amazon US",
+        "brand": {
+          "brandId": 3,
+          "brandName": "Amazon"
+        }
+      },
+      "smiles": [
+        {
+          "code": "AMZN-XXXX-XXXX-XXXX",
+          "pinCode": null,
+          "validity": "Never expires"
+        }
+      ],
+      "date": "2026-05-02T10:30:00Z"
+    }
+  }
+}

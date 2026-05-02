@@ -1,0 +1,105 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "reloadly": "https://api-evangelist.github.io/reloadly/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Product": "schema:Product",
+    "Order": "schema:Order",
+    "Organization": "schema:Organization",
+    "Country": "schema:Country",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "identifier": "schema:identifier",
+    "email": "schema:email",
+
+    "GiftCardProduct": {
+      "@id": "reloadly:GiftCardProduct",
+      "@type": "@id",
+      "comment": "A digital gift card product available through the Reloadly catalog"
+    },
+    "GiftCardOrder": {
+      "@id": "reloadly:GiftCardOrder",
+      "@type": "@id",
+      "comment": "A placed and fulfilled digital gift card order"
+    },
+    "GiftCardCode": {
+      "@id": "reloadly:GiftCardCode",
+      "@type": "@id",
+      "comment": "A digital gift card redemption code delivered to a recipient"
+    },
+    "AirtimeTopUp": {
+      "@id": "reloadly:AirtimeTopUp",
+      "@type": "@id",
+      "comment": "A mobile airtime top-up transaction sent to a phone number"
+    },
+    "MobileOperator": {
+      "@id": "reloadly:MobileOperator",
+      "@type": "@id",
+      "comment": "A mobile network operator supported by the Reloadly Airtime API"
+    },
+    "productId": {
+      "@id": "reloadly:productId",
+      "@type": "xsd:integer",
+      "comment": "Unique Reloadly product identifier"
+    },
+    "brandName": {
+      "@id": "reloadly:brandName",
+      "@type": "xsd:string",
+      "comment": "The gift card brand name (e.g., Amazon, Apple, Netflix)"
+    },
+    "denominationType": {
+      "@id": "reloadly:denominationType",
+      "@type": "xsd:string",
+      "comment": "Whether the product uses FIXED or RANGE denominations"
+    },
+    "discountPercentage": {
+      "@id": "reloadly:discountPercentage",
+      "@type": "xsd:decimal",
+      "comment": "Percentage discount on face value"
+    },
+    "recipientCurrencyCode": {
+      "@id": "reloadly:recipientCurrencyCode",
+      "@type": "xsd:string",
+      "comment": "ISO 4217 currency code for the gift card recipient"
+    },
+    "senderCurrencyCode": {
+      "@id": "reloadly:senderCurrencyCode",
+      "@type": "xsd:string",
+      "comment": "ISO 4217 currency code for the sender"
+    },
+    "transactionId": {
+      "@id": "reloadly:transactionId",
+      "@type": "xsd:integer",
+      "comment": "Unique transaction identifier"
+    },
+    "redemptionCode": {
+      "@id": "reloadly:redemptionCode",
+      "@type": "xsd:string",
+      "comment": "The digital code used to redeem a gift card"
+    },
+    "operatorId": {
+      "@id": "reloadly:operatorId",
+      "@type": "xsd:integer",
+      "comment": "Unique mobile network operator identifier"
+    },
+    "countryCode": {
+      "@id": "reloadly:countryCode",
+      "@type": "xsd:string",
+      "comment": "ISO 3166-1 alpha-2 country code"
+    },
+    "customIdentifier": {
+      "@id": "reloadly:customIdentifier",
+      "@type": "xsd:string",
+      "comment": "Partner-provided custom reference identifier for tracking"
+    },
+    "useLocalAmount": {
+      "@id": "reloadly:useLocalAmount",
+      "@type": "xsd:boolean",
+      "comment": "Whether the top-up amount is in local or international currency"
+    }
+  }
+}
