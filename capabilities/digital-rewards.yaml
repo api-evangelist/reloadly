@@ -1,284 +1,582 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
   label: Reloadly Digital Rewards
-  description: >-
-    Unified workflow capability combining Reloadly Gift Cards and Airtime APIs
-    for building digital rewards, loyalty programs, and employee incentive
-    platforms. Enables program managers and marketing teams to discover
-    reward options, check costs, place orders, and track fulfillment across
-    both gift cards and mobile top-ups from a single integration.
+  description: Unified workflow capability combining Reloadly Gift Cards and Airtime APIs for building digital rewards, loyalty
+    programs, and employee incentive platforms. Enables program managers and marketing teams to discover reward options, check
+    costs, place orders, and track fulfillment across both gift cards and mobile top-ups from a single integration.
   tags:
-    - Reloadly
-    - Digital Rewards
-    - Gift Cards
-    - Airtime
-    - Loyalty
-    - Incentives
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Reloadly
+  - Digital Rewards
+  - Gift Cards
+  - Airtime
+  - Loyalty
+  - Incentives
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      RELOADLY_CLIENT_ID: RELOADLY_CLIENT_ID
-      RELOADLY_CLIENT_SECRET: RELOADLY_CLIENT_SECRET
-
+- namespace: env
+  keys:
+    RELOADLY_CLIENT_ID: RELOADLY_CLIENT_ID
+    RELOADLY_CLIENT_SECRET: RELOADLY_CLIENT_SECRET
 capability:
   consumes:
-    - import: reloadly-gift-cards
-      location: ./shared/gift-cards.yaml
-    - import: reloadly-airtime
-      location: ./shared/airtime.yaml
-
+  - type: http
+    namespace: reloadly-gift-cards
+    baseUri: https://giftcards.reloadly.com
+    description: Reloadly Gift Cards REST API
+    authentication:
+      type: bearer
+      token: '{{RELOADLY_ACCESS_TOKEN}}'
+    resources:
+    - name: products
+      path: /products
+      description: Gift card product catalog
+      operations:
+      - name: list-products
+        method: GET
+        description: List available gift card products with optional country/currency filters
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: size
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        - name: countryCode
+          in: query
+          type: string
+          required: false
+          description: ISO 3166-1 alpha-2 country code filter
+        - name: currencyCode
+          in: query
+          type: string
+          required: false
+          description: ISO 4217 currency code filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-product
+        method: GET
+        description: Retrieve details for a specific gift card product
+        inputParameters:
+        - name: productId
+          in: path
+          type: integer
+          required: true
+          description: Unique product identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: discounts
+      path: /discounts
+      description: Gift card discount rates
+      operations:
+      - name: list-discounts
+        method: GET
+        description: List discount rates for all gift card products
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: size
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-product-discount
+        method: GET
+        description: Get discount rate for a specific product
+        inputParameters:
+        - name: productId
+          in: path
+          type: integer
+          required: true
+          description: Product identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: orders
+      path: /orders
+      description: Gift card order management
+      operations:
+      - name: place-order
+        method: POST
+        description: Place a gift card order for immediate fulfillment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            productId: '{{tools.productId}}'
+            quantity: '{{tools.quantity}}'
+            unitPrice: '{{tools.unitPrice}}'
+            senderName: '{{tools.senderName}}'
+            recipientEmail: '{{tools.recipientEmail}}'
+      - name: get-order
+        method: GET
+        description: Retrieve a specific gift card order
+        inputParameters:
+        - name: orderId
+          in: path
+          type: integer
+          required: true
+          description: Order identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: transactions
+      path: /transactions
+      description: Transaction history
+      operations:
+      - name: list-transactions
+        method: GET
+        description: List all gift card transactions
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date filter (YYYY-MM-DD)
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date filter (YYYY-MM-DD)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: balance
+      path: /accounts/balance
+      description: Account balance
+      operations:
+      - name: get-balance
+        method: GET
+        description: Retrieve current account balance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: reloadly-airtime
+    baseUri: https://topups.reloadly.com
+    description: Reloadly Airtime REST API
+    authentication:
+      type: bearer
+      token: '{{RELOADLY_ACCESS_TOKEN}}'
+    resources:
+    - name: operators
+      path: /operators
+      description: Mobile network operators
+      operations:
+      - name: list-operators
+        method: GET
+        description: List mobile network operators with optional country filter
+        inputParameters:
+        - name: countryCode
+          in: query
+          type: string
+          required: false
+          description: ISO 3166-1 alpha-2 country code
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: size
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-operator
+        method: GET
+        description: Get details for a specific mobile network operator
+        inputParameters:
+        - name: operatorId
+          in: path
+          type: integer
+          required: true
+          description: Operator identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: auto-detect-operator
+        method: GET
+        description: Auto-detect the mobile operator for a phone number
+        inputParameters:
+        - name: phone
+          in: path
+          type: string
+          required: true
+          description: Phone number
+        - name: countryCode
+          in: path
+          type: string
+          required: true
+          description: ISO 3166-1 alpha-2 country code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: topups
+      path: /topups
+      description: Airtime top-up operations
+      operations:
+      - name: send-topup
+        method: POST
+        description: Send an airtime top-up to a mobile phone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            operatorId: '{{tools.operatorId}}'
+            amount: '{{tools.amount}}'
+            useLocalAmount: '{{tools.useLocalAmount}}'
+            customIdentifier: '{{tools.customIdentifier}}'
+            recipientPhone: '{{tools.recipientPhone}}'
+            senderPhone: '{{tools.senderPhone}}'
+    - name: topup-transactions
+      path: /topups/transactions
+      description: Airtime transaction history
+      operations:
+      - name: list-topup-transactions
+        method: GET
+        description: List airtime top-up transactions
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date filter
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-topup-transaction
+        method: GET
+        description: Get details for a specific top-up transaction
+        inputParameters:
+        - name: transactionId
+          in: path
+          type: integer
+          required: true
+          description: Transaction identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: airtime-balance
+      path: /accounts/balance
+      description: Airtime account balance
+      operations:
+      - name: get-airtime-balance
+        method: GET
+        description: Get airtime account balance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: reloadly-rewards-api
-      description: "Unified REST API for digital rewards program management."
-      resources:
-        - path: /v1/gift-cards
-          name: gift-cards
-          description: Gift card product catalog
-          operations:
-            - method: GET
-              name: list-gift-cards
-              description: List available gift card products
-              call: "reloadly-gift-cards.list-products"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/gift-cards/{productId}
-          name: gift-card
-          description: Individual gift card product
-          operations:
-            - method: GET
-              name: get-gift-card
-              description: Get gift card product details
-              call: "reloadly-gift-cards.get-product"
-              with:
-                productId: "rest.productId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/discounts
-          name: discounts
-          description: Available discount rates on gift cards
-          operations:
-            - method: GET
-              name: list-discounts
-              description: List gift card discount rates
-              call: "reloadly-gift-cards.list-discounts"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/orders
-          name: orders
-          description: Gift card orders
-          operations:
-            - method: POST
-              name: place-gift-card-order
-              description: Place a gift card reward order
-              call: "reloadly-gift-cards.place-order"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/orders/{orderId}
-          name: order
-          description: Individual gift card order
-          operations:
-            - method: GET
-              name: get-order
-              description: Get gift card order and codes
-              call: "reloadly-gift-cards.get-order"
-              with:
-                orderId: "rest.orderId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/operators
-          name: operators
-          description: Mobile network operators for airtime
-          operations:
-            - method: GET
-              name: list-operators
-              description: List mobile network operators
-              call: "reloadly-airtime.list-operators"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/topups
-          name: topups
-          description: Airtime top-up orders
-          operations:
-            - method: POST
-              name: send-topup
-              description: Send airtime top-up reward
-              call: "reloadly-airtime.send-topup"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/transactions
-          name: transactions
-          description: All reward transactions
-          operations:
-            - method: GET
-              name: list-gift-card-transactions
-              description: List gift card transactions
-              call: "reloadly-gift-cards.list-transactions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/airtime-transactions
-          name: airtime-transactions
-          description: Airtime top-up transactions
-          operations:
-            - method: GET
-              name: list-airtime-transactions
-              description: List airtime transactions
-              call: "reloadly-airtime.list-topup-transactions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/balance
-          name: balance
-          description: Account balances
-          operations:
-            - method: GET
-              name: get-gift-card-balance
-              description: Get gift card account balance
-              call: "reloadly-gift-cards.get-balance"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: reloadly-rewards-mcp
-      transport: http
-      description: "MCP server for AI-assisted digital rewards program management."
-      tools:
-        - name: list-gift-card-products
-          description: Browse the gift card product catalog filtered by country and currency
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "reloadly-gift-cards.list-products"
-          with:
-            countryCode: "tools.countryCode"
-            currencyCode: "tools.currencyCode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-gift-card-product
-          description: Get details for a specific gift card product including denominations
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "reloadly-gift-cards.get-product"
-          with:
-            productId: "tools.productId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-gift-card-discounts
-          description: List discount rates available on gift card products
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "reloadly-gift-cards.list-discounts"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: place-gift-card-order
-          description: Order a digital gift card reward for a recipient
-          hints:
-            readOnly: false
-            destructive: false
-          call: "reloadly-gift-cards.place-order"
-          with:
-            productId: "tools.productId"
-            quantity: "tools.quantity"
-            unitPrice: "tools.unitPrice"
-            senderName: "tools.senderName"
-            recipientEmail: "tools.recipientEmail"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-gift-card-order
-          description: Retrieve gift card order details and redemption codes
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "reloadly-gift-cards.get-order"
-          with:
-            orderId: "tools.orderId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-operators
-          description: Browse mobile network operators for airtime top-ups by country
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "reloadly-airtime.list-operators"
-          with:
-            countryCode: "tools.countryCode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: auto-detect-operator
-          description: Automatically identify the mobile operator for a phone number
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "reloadly-airtime.auto-detect-operator"
-          with:
-            phone: "tools.phone"
-            countryCode: "tools.countryCode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: send-airtime-topup
-          description: Send a mobile airtime top-up reward to a phone number
-          hints:
-            readOnly: false
-            destructive: false
-          call: "reloadly-airtime.send-topup"
-          with:
-            operatorId: "tools.operatorId"
-            amount: "tools.amount"
-            useLocalAmount: "tools.useLocalAmount"
-            customIdentifier: "tools.customIdentifier"
-            recipientPhone: "tools.recipientPhone"
-            senderPhone: "tools.senderPhone"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-gift-card-transactions
-          description: List gift card order transaction history
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "reloadly-gift-cards.list-transactions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-airtime-transactions
-          description: List airtime top-up transaction history
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "reloadly-airtime.list-topup-transactions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-account-balance
-          description: Check the current account balance for gift card purchases
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "reloadly-gift-cards.get-balance"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: reloadly-rewards-api
+    description: Unified REST API for digital rewards program management.
+    resources:
+    - path: /v1/gift-cards
+      name: gift-cards
+      description: Gift card product catalog
+      operations:
+      - method: GET
+        name: list-gift-cards
+        description: List available gift card products
+        call: reloadly-gift-cards.list-products
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/gift-cards/{productId}
+      name: gift-card
+      description: Individual gift card product
+      operations:
+      - method: GET
+        name: get-gift-card
+        description: Get gift card product details
+        call: reloadly-gift-cards.get-product
+        with:
+          productId: rest.productId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/discounts
+      name: discounts
+      description: Available discount rates on gift cards
+      operations:
+      - method: GET
+        name: list-discounts
+        description: List gift card discount rates
+        call: reloadly-gift-cards.list-discounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders
+      name: orders
+      description: Gift card orders
+      operations:
+      - method: POST
+        name: place-gift-card-order
+        description: Place a gift card reward order
+        call: reloadly-gift-cards.place-order
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{orderId}
+      name: order
+      description: Individual gift card order
+      operations:
+      - method: GET
+        name: get-order
+        description: Get gift card order and codes
+        call: reloadly-gift-cards.get-order
+        with:
+          orderId: rest.orderId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operators
+      name: operators
+      description: Mobile network operators for airtime
+      operations:
+      - method: GET
+        name: list-operators
+        description: List mobile network operators
+        call: reloadly-airtime.list-operators
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/topups
+      name: topups
+      description: Airtime top-up orders
+      operations:
+      - method: POST
+        name: send-topup
+        description: Send airtime top-up reward
+        call: reloadly-airtime.send-topup
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactions
+      name: transactions
+      description: All reward transactions
+      operations:
+      - method: GET
+        name: list-gift-card-transactions
+        description: List gift card transactions
+        call: reloadly-gift-cards.list-transactions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/airtime-transactions
+      name: airtime-transactions
+      description: Airtime top-up transactions
+      operations:
+      - method: GET
+        name: list-airtime-transactions
+        description: List airtime transactions
+        call: reloadly-airtime.list-topup-transactions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/balance
+      name: balance
+      description: Account balances
+      operations:
+      - method: GET
+        name: get-gift-card-balance
+        description: Get gift card account balance
+        call: reloadly-gift-cards.get-balance
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: reloadly-rewards-mcp
+    transport: http
+    description: MCP server for AI-assisted digital rewards program management.
+    tools:
+    - name: list-gift-card-products
+      description: Browse the gift card product catalog filtered by country and currency
+      hints:
+        readOnly: true
+        openWorld: true
+      call: reloadly-gift-cards.list-products
+      with:
+        countryCode: tools.countryCode
+        currencyCode: tools.currencyCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-gift-card-product
+      description: Get details for a specific gift card product including denominations
+      hints:
+        readOnly: true
+        openWorld: true
+      call: reloadly-gift-cards.get-product
+      with:
+        productId: tools.productId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-gift-card-discounts
+      description: List discount rates available on gift card products
+      hints:
+        readOnly: true
+        openWorld: true
+      call: reloadly-gift-cards.list-discounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: place-gift-card-order
+      description: Order a digital gift card reward for a recipient
+      hints:
+        readOnly: false
+        destructive: false
+      call: reloadly-gift-cards.place-order
+      with:
+        productId: tools.productId
+        quantity: tools.quantity
+        unitPrice: tools.unitPrice
+        senderName: tools.senderName
+        recipientEmail: tools.recipientEmail
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-gift-card-order
+      description: Retrieve gift card order details and redemption codes
+      hints:
+        readOnly: true
+        openWorld: false
+      call: reloadly-gift-cards.get-order
+      with:
+        orderId: tools.orderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-operators
+      description: Browse mobile network operators for airtime top-ups by country
+      hints:
+        readOnly: true
+        openWorld: true
+      call: reloadly-airtime.list-operators
+      with:
+        countryCode: tools.countryCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: auto-detect-operator
+      description: Automatically identify the mobile operator for a phone number
+      hints:
+        readOnly: true
+        openWorld: true
+      call: reloadly-airtime.auto-detect-operator
+      with:
+        phone: tools.phone
+        countryCode: tools.countryCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-airtime-topup
+      description: Send a mobile airtime top-up reward to a phone number
+      hints:
+        readOnly: false
+        destructive: false
+      call: reloadly-airtime.send-topup
+      with:
+        operatorId: tools.operatorId
+        amount: tools.amount
+        useLocalAmount: tools.useLocalAmount
+        customIdentifier: tools.customIdentifier
+        recipientPhone: tools.recipientPhone
+        senderPhone: tools.senderPhone
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-gift-card-transactions
+      description: List gift card order transaction history
+      hints:
+        readOnly: true
+        openWorld: false
+      call: reloadly-gift-cards.list-transactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-airtime-transactions
+      description: List airtime top-up transaction history
+      hints:
+        readOnly: true
+        openWorld: false
+      call: reloadly-airtime.list-topup-transactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-account-balance
+      description: Check the current account balance for gift card purchases
+      hints:
+        readOnly: true
+        openWorld: false
+      call: reloadly-gift-cards.get-balance
+      outputParameters:
+      - type: object
+        mapping: $.
