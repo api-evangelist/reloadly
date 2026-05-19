@@ -1,0 +1,200 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Reloadly Airtime API — Operators
+  description: 'Reloadly Airtime API — Operators. 3 operations. Lead operation: List Operators. Self-contained Naftiko capability
+    covering one Reloadly business surface.'
+  tags:
+  - Reloadly
+  - Operators
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RELOADLY_API_KEY: RELOADLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: airtime-operators
+    baseUri: https://topups.reloadly.com
+    description: Reloadly Airtime API — Operators business capability. Self-contained, no shared references.
+    resources:
+    - name: operators
+      path: /operators
+      operations:
+      - name: listoperators
+        method: GET
+        description: List Operators
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: countryCode
+          in: query
+          type: string
+          description: Filter by ISO 3166-1 alpha-2 country code
+        - name: includeBundles
+          in: query
+          type: boolean
+          description: Include data bundle operators
+        - name: includeData
+          in: query
+          type: boolean
+          description: Include data-only operators
+        - name: includePin
+          in: query
+          type: boolean
+          description: Include PIN-based top-up operators
+    - name: operators-auto-detect-phone-phone-countries-countryCode
+      path: /operators/auto-detect/phone/{phone}/countries/{countryCode}
+      operations:
+      - name: autodetectoperator
+        method: GET
+        description: Auto-Detect Operator
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: phone
+          in: path
+          type: string
+          description: Phone number in E.164 format (without leading +)
+          required: true
+        - name: countryCode
+          in: path
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          required: true
+        - name: suggestedAmounts
+          in: query
+          type: boolean
+          description: Include suggested top-up amounts
+        - name: suggestedAmountsMap
+          in: query
+          type: boolean
+          description: Include suggested amounts as a map
+    - name: operators-operatorId
+      path: /operators/{operatorId}
+      operations:
+      - name: getoperator
+        method: GET
+        description: Get Operator
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: operatorId
+          in: path
+          type: integer
+          description: Unique identifier of the operator
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RELOADLY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: airtime-operators-rest
+    port: 8080
+    description: REST adapter for Reloadly Airtime API — Operators. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/operators
+      name: operators
+      description: REST surface for operators.
+      operations:
+      - method: GET
+        name: listoperators
+        description: List Operators
+        call: airtime-operators.listoperators
+        with:
+          countryCode: rest.countryCode
+          includeBundles: rest.includeBundles
+          includeData: rest.includeData
+          includePin: rest.includePin
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operators/auto-detect/phone/{phone}/countries/{countrycode}
+      name: operators-auto-detect-phone-phone-countries-countrycode
+      description: REST surface for operators-auto-detect-phone-phone-countries-countryCode.
+      operations:
+      - method: GET
+        name: autodetectoperator
+        description: Auto-Detect Operator
+        call: airtime-operators.autodetectoperator
+        with:
+          phone: rest.phone
+          countryCode: rest.countryCode
+          suggestedAmounts: rest.suggestedAmounts
+          suggestedAmountsMap: rest.suggestedAmountsMap
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operators/{operatorid}
+      name: operators-operatorid
+      description: REST surface for operators-operatorId.
+      operations:
+      - method: GET
+        name: getoperator
+        description: Get Operator
+        call: airtime-operators.getoperator
+        with:
+          operatorId: rest.operatorId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: airtime-operators-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Reloadly Airtime API — Operators. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-operators
+      description: List Operators
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtime-operators.listoperators
+      with:
+        countryCode: tools.countryCode
+        includeBundles: tools.includeBundles
+        includeData: tools.includeData
+        includePin: tools.includePin
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: auto-detect-operator
+      description: Auto-Detect Operator
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtime-operators.autodetectoperator
+      with:
+        phone: tools.phone
+        countryCode: tools.countryCode
+        suggestedAmounts: tools.suggestedAmounts
+        suggestedAmountsMap: tools.suggestedAmountsMap
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-operator
+      description: Get Operator
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtime-operators.getoperator
+      with:
+        operatorId: tools.operatorId
+      outputParameters:
+      - type: object
+        mapping: $.

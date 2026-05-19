@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Reloadly Gift Cards API — Orders
+  description: 'Reloadly Gift Cards API — Orders. 2 operations. Lead operation: Place Order. Self-contained Naftiko capability
+    covering one Reloadly business surface.'
+  tags:
+  - Reloadly
+  - Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RELOADLY_API_KEY: RELOADLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gift-cards-orders
+    baseUri: https://giftcards.reloadly.com
+    description: Reloadly Gift Cards API — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: orders
+      path: /orders
+      operations:
+      - name: placeorder
+        method: POST
+        description: Place Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orders-orderId
+      path: /orders/{orderId}
+      operations:
+      - name: getorder
+        method: GET
+        description: Get Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: path
+          type: integer
+          description: Unique identifier of the order
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RELOADLY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: gift-cards-orders-rest
+    port: 8080
+    description: REST adapter for Reloadly Gift Cards API — Orders. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/orders
+      name: orders
+      description: REST surface for orders.
+      operations:
+      - method: POST
+        name: placeorder
+        description: Place Order
+        call: gift-cards-orders.placeorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{orderid}
+      name: orders-orderid
+      description: REST surface for orders-orderId.
+      operations:
+      - method: GET
+        name: getorder
+        description: Get Order
+        call: gift-cards-orders.getorder
+        with:
+          orderId: rest.orderId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gift-cards-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Reloadly Gift Cards API — Orders. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: place-order
+      description: Place Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gift-cards-orders.placeorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-order
+      description: Get Order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gift-cards-orders.getorder
+      with:
+        orderId: tools.orderId
+      outputParameters:
+      - type: object
+        mapping: $.

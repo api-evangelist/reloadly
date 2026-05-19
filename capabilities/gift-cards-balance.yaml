@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Reloadly Gift Cards API — Balance
+  description: 'Reloadly Gift Cards API — Balance. 1 operations. Lead operation: Get Account Balance. Self-contained Naftiko
+    capability covering one Reloadly business surface.'
+  tags:
+  - Reloadly
+  - Balance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RELOADLY_API_KEY: RELOADLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gift-cards-balance
+    baseUri: https://giftcards.reloadly.com
+    description: Reloadly Gift Cards API — Balance business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-balance
+      path: /accounts/balance
+      operations:
+      - name: getbalance
+        method: GET
+        description: Get Account Balance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RELOADLY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: gift-cards-balance-rest
+    port: 8080
+    description: REST adapter for Reloadly Gift Cards API — Balance. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounts/balance
+      name: accounts-balance
+      description: REST surface for accounts-balance.
+      operations:
+      - method: GET
+        name: getbalance
+        description: Get Account Balance
+        call: gift-cards-balance.getbalance
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gift-cards-balance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Reloadly Gift Cards API — Balance. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-account-balance
+      description: Get Account Balance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gift-cards-balance.getbalance
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,112 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Reloadly Gift Cards API — Discounts
+  description: 'Reloadly Gift Cards API — Discounts. 2 operations. Lead operation: List Discounts. Self-contained Naftiko
+    capability covering one Reloadly business surface.'
+  tags:
+  - Reloadly
+  - Discounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RELOADLY_API_KEY: RELOADLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gift-cards-discounts
+    baseUri: https://giftcards.reloadly.com
+    description: Reloadly Gift Cards API — Discounts business capability. Self-contained, no shared references.
+    resources:
+    - name: discounts
+      path: /discounts
+      operations:
+      - name: listdiscounts
+        method: GET
+        description: List Discounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: discounts-products-productId
+      path: /discounts/products/{productId}
+      operations:
+      - name: getproductdiscount
+        method: GET
+        description: Get Product Discount
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: integer
+          description: Unique identifier of the gift card product
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RELOADLY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: gift-cards-discounts-rest
+    port: 8080
+    description: REST adapter for Reloadly Gift Cards API — Discounts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/discounts
+      name: discounts
+      description: REST surface for discounts.
+      operations:
+      - method: GET
+        name: listdiscounts
+        description: List Discounts
+        call: gift-cards-discounts.listdiscounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/discounts/products/{productid}
+      name: discounts-products-productid
+      description: REST surface for discounts-products-productId.
+      operations:
+      - method: GET
+        name: getproductdiscount
+        description: Get Product Discount
+        call: gift-cards-discounts.getproductdiscount
+        with:
+          productId: rest.productId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gift-cards-discounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Reloadly Gift Cards API — Discounts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-discounts
+      description: List Discounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gift-cards-discounts.listdiscounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product-discount
+      description: Get Product Discount
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gift-cards-discounts.getproductdiscount
+      with:
+        productId: tools.productId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Reloadly Airtime API — Transactions
+  description: 'Reloadly Airtime API — Transactions. 2 operations. Lead operation: List Top-Up Transactions. Self-contained
+    Naftiko capability covering one Reloadly business surface.'
+  tags:
+  - Reloadly
+  - Transactions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RELOADLY_API_KEY: RELOADLY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: airtime-transactions
+    baseUri: https://topups.reloadly.com
+    description: Reloadly Airtime API — Transactions business capability. Self-contained, no shared references.
+    resources:
+    - name: topups-transactions
+      path: /topups/transactions
+      operations:
+      - name: listtopuptransactions
+        method: GET
+        description: List Top-Up Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+          description: Filter from this date (YYYY-MM-DD)
+        - name: endDate
+          in: query
+          type: string
+          description: Filter to this date (YYYY-MM-DD)
+    - name: topups-transactions-transactionId
+      path: /topups/transactions/{transactionId}
+      operations:
+      - name: gettopuptransaction
+        method: GET
+        description: Get Top-Up Transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: transactionId
+          in: path
+          type: integer
+          description: Unique transaction identifier
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RELOADLY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: airtime-transactions-rest
+    port: 8080
+    description: REST adapter for Reloadly Airtime API — Transactions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/topups/transactions
+      name: topups-transactions
+      description: REST surface for topups-transactions.
+      operations:
+      - method: GET
+        name: listtopuptransactions
+        description: List Top-Up Transactions
+        call: airtime-transactions.listtopuptransactions
+        with:
+          startDate: rest.startDate
+          endDate: rest.endDate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/topups/transactions/{transactionid}
+      name: topups-transactions-transactionid
+      description: REST surface for topups-transactions-transactionId.
+      operations:
+      - method: GET
+        name: gettopuptransaction
+        description: Get Top-Up Transaction
+        call: airtime-transactions.gettopuptransaction
+        with:
+          transactionId: rest.transactionId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: airtime-transactions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Reloadly Airtime API — Transactions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-top-up-transactions
+      description: List Top-Up Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtime-transactions.listtopuptransactions
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-top-up-transaction
+      description: Get Top-Up Transaction
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: airtime-transactions.gettopuptransaction
+      with:
+        transactionId: tools.transactionId
+      outputParameters:
+      - type: object
+        mapping: $.
