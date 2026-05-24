@@ -93,6 +93,8 @@ common:
   url: https://www.linkedin.com/company/reloadly
 - type: Twitter
   url: https://twitter.com/reloadly
+- type: LLMsTxt
+  url: https://docs.reloadly.com/llms.txt
 features:
 - name: OAuth 2.0 Authentication
   description: Client credentials grant with separate sandbox and production tokens
