@@ -1,0 +1,258 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reloadly Airtime API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://topups.reloadly.com/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange your client credentials for an OAuth 2.0 bearer access token for the Airtime API. Set audience to https://topups.reloadly.com."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Operators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Operators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/operators",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by ISO 3166-1 alpha-2 country code"
+              },
+              {
+                "name": "includeBundles",
+                "value": "",
+                "type": "query",
+                "description": "Include data bundle operators"
+              },
+              {
+                "name": "includeData",
+                "value": "",
+                "type": "query",
+                "description": "Include data-only operators"
+              },
+              {
+                "name": "includePin",
+                "value": "",
+                "type": "query",
+                "description": "Include PIN-based top-up operators"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of supported mobile network operators. Supports filtering by country code. Returns operator details including name, country, supported denominations, and FX rates."
+        },
+        {
+          "info": {
+            "name": "Get Operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/operators/:operatorId",
+            "params": [
+              {
+                "name": "operatorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the operator"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific mobile network operator including coverage, denominations, and FX exchange rate."
+        },
+        {
+          "info": {
+            "name": "Auto-Detect Operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/operators/auto-detect/phone/:phone/countries/:countryCode",
+            "params": [
+              {
+                "name": "phone",
+                "value": "",
+                "type": "path",
+                "description": "Phone number in E.164 format (without leading +)"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-1 alpha-2 country code"
+              },
+              {
+                "name": "suggestedAmounts",
+                "value": "",
+                "type": "query",
+                "description": "Include suggested top-up amounts"
+              },
+              {
+                "name": "suggestedAmountsMap",
+                "value": "",
+                "type": "query",
+                "description": "Include suggested amounts as a map"
+              }
+            ]
+          },
+          "docs": "Automatically detect the mobile network operator for a phone number in a given country. Returns the detected operator with confidence score."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Top-Ups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send Top-Up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://topups.reloadly.com/topups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an airtime top-up to a mobile phone. Specify the operator ID or let the API auto-detect it from the phone number and country. Returns a transaction object with delivery confirmation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Top-Up Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/topups/transactions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter from this date (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter to this date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all airtime top-up transactions. Supports filtering by date range, phone number, and status."
+        },
+        {
+          "info": {
+            "name": "Get Top-Up Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/topups/transactions/:transactionId",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique transaction identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific airtime top-up transaction."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Balance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Account Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/accounts/balance"
+          },
+          "docs": "Retrieve the current balance of your Reloadly account for airtime top-ups."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

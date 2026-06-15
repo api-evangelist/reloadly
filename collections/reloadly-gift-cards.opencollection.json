@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reloadly Gift Cards API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://giftcards.reloadly.com/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange your client credentials for an OAuth 2.0 bearer access token. Tokens are valid for 60 days in production and 24 hours in sandbox. Use the audience parameter to specify which service the token is for."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/products",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by ISO 3166-1 alpha-2 country code"
+              },
+              {
+                "name": "currencyCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by ISO 4217 currency code"
+              },
+              {
+                "name": "includeRange",
+                "value": "",
+                "type": "query",
+                "description": "Include range-denomination products"
+              },
+              {
+                "name": "includeFixed",
+                "value": "",
+                "type": "query",
+                "description": "Include fixed-denomination products"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of available gift card products. Supports filtering by country, currency, and product category. Returns brand details, denominations, discount rates, and redemption instructions."
+        },
+        {
+          "info": {
+            "name": "Get Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/products/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the gift card product"
+              }
+            ]
+          },
+          "docs": "Retrieve full details for a specific gift card product including available denominations, discount rate, redemption instructions, supported countries, and brand information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Discounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/discounts",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve available discount rates for all gift card products. Returns the percentage discount applied to face value at purchase."
+        },
+        {
+          "info": {
+            "name": "Get Product Discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/discounts/products/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the gift card product"
+              }
+            ]
+          },
+          "docs": "Retrieve the discount rate for a specific gift card product."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Place Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://giftcards.reloadly.com/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Place a gift card order for a specific product and denomination. Successful orders return an order object with the gift card code, PIN, and redemption instructions. Orders are fulfilled in real-time."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the order"
+              }
+            ]
+          },
+          "docs": "Retrieve the details of a specific gift card order including the gift card code, PIN, redemption instructions, and order status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/transactions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions from this date (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions to this date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all transactions on the account including gift card orders, balance top-ups, and refunds. Supports filtering by date range and transaction type."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Balance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Account Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://giftcards.reloadly.com/accounts/balance"
+          },
+          "docs": "Retrieve the current balance of your Reloadly account including available balance and currency."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
