@@ -68,13 +68,13 @@ common:
     url: https://support.reloadly.com
   - type: Pricing
     url: https://www.reloadly.com/pricing
-  - type: SignUp
+  - type: Signup
     url: https://www.reloadly.com/register
   - type: LinkedIn
     url: https://www.linkedin.com/company/reloadly
   - type: Twitter
     url: https://twitter.com/reloadly
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.reloadly.com/llms.txt
 features:
   - name: OAuth 2.0 Authentication
