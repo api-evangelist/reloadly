@@ -54,6 +54,10 @@ apis:
       - type: OpenAPI
         url: openapi/reloadly-airtime-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/reloadly-domain-security.yml
+  - type: Authentication
+    url: authentication/reloadly-authentication.yml
   - type: Website
     url: https://www.reloadly.com
   - type: Documentation
@@ -76,6 +80,8 @@ common:
     url: https://twitter.com/reloadly
   - type: LlmsText
     url: https://docs.reloadly.com/llms.txt
+  - url: https://www.reloadly.com/blog/feed/
+    type: Blog
 features:
   - name: OAuth 2.0 Authentication
     description: Client credentials grant with separate sandbox and production tokens
