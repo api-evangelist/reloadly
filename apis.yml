@@ -54,6 +54,8 @@ apis:
       - type: OpenAPI
         url: openapi/reloadly-airtime-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/reloadly-agentic-access.yml
   - type: DomainSecurity
     url: security/reloadly-domain-security.yml
   - type: Authentication
