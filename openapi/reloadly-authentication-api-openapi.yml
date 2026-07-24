@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: Reloadly Airtime Authentication API
+  description: The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.
+  version: 1.0.0
+  contact:
+    name: Reloadly Support
+    url: https://support.reloadly.com
+  termsOfService: https://www.reloadly.com/terms
+servers:
+- url: https://topups.reloadly.com
+  description: Production Server
+- url: https://topups-sandbox.reloadly.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+  description: Obtain OAuth 2.0 access tokens for API authorization.
+paths:
+  /oauth/token:
+    post:
+      operationId: getAirtimeAccessToken
+      summary: Get Access Token
+      description: Exchange your client credentials for an OAuth 2.0 bearer access token for the Airtime API. Set audience to https://topups.reloadly.com.
+      tags:
+      - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: Access token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    TokenRequest:
+      type: object
+      required:
+      - client_id
+      - client_secret
+      - grant_type
+      - audience
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+        audience:
+          type: string
+          example: https://topups.reloadly.com
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        scope:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint using client credentials grant.
+externalDocs:
+  description: Reloadly Airtime API Reference
+  url: https://docs.reloadly.com/airtime

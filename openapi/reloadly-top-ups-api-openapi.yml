@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Reloadly Airtime Authentication Top-Ups API
+  description: The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.
+  version: 1.0.0
+  contact:
+    name: Reloadly Support
+    url: https://support.reloadly.com
+  termsOfService: https://www.reloadly.com/terms
+servers:
+- url: https://topups.reloadly.com
+  description: Production Server
+- url: https://topups-sandbox.reloadly.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Top-Ups
+  description: Send airtime top-ups to mobile phones worldwide.
+paths:
+  /topups:
+    post:
+      operationId: sendTopUp
+      summary: Send Top-Up
+      description: Send an airtime top-up to a mobile phone. Specify the operator ID or let the API auto-detect it from the phone number and country. Returns a transaction object with delivery confirmation.
+      tags:
+      - Top-Ups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopUpRequest'
+      responses:
+        '200':
+          description: Top-up sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUpTransaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Phone:
+      type: object
+      required:
+      - countryCode
+      - number
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        number:
+          type: string
+          description: Phone number in E.164 format (without leading +)
+    TopUpTransaction:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+        status:
+          type: string
+          enum:
+          - SUCCESSFUL
+          - REFUNDED
+          - FAILED
+        operatorTransactionId:
+          type: string
+          description: Transaction ID from the mobile operator
+        customIdentifier:
+          type: string
+        recipientPhone:
+          type: string
+        recipientEmail:
+          type: string
+        senderPhone:
+          type: string
+        countryCode:
+          type: string
+        operatorId:
+          type: integer
+        operatorName:
+          type: string
+        discount:
+          type: number
+        discountCurrencyCode:
+          type: string
+        requestedAmount:
+          type: number
+        requestedAmountCurrencyCode:
+          type: string
+        deliveredAmount:
+          type: number
+        deliveredAmountCurrencyCode:
+          type: string
+        transactionDate:
+          type: string
+          format: date-time
+    TopUpRequest:
+      type: object
+      required:
+      - operatorId
+      - amount
+      - useLocalAmount
+      - customIdentifier
+      - recipientPhone
+      - senderPhone
+      properties:
+        operatorId:
+          type: integer
+          description: Target mobile network operator ID
+        amount:
+          type: number
+          format: double
+          description: Top-up amount
+        useLocalAmount:
+          type: boolean
+          description: Whether amount is in local currency or international (USD)
+        customIdentifier:
+          type: string
+          description: Custom reference identifier for tracking
+        recipientPhone:
+          $ref: '#/components/schemas/Phone'
+        senderPhone:
+          $ref: '#/components/schemas/Phone'
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint using client credentials grant.
+externalDocs:
+  description: Reloadly Airtime API Reference
+  url: https://docs.reloadly.com/airtime

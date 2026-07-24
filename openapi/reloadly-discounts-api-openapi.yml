@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: Reloadly Airtime Authentication Discounts API
+  description: The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.
+  version: 1.0.0
+  contact:
+    name: Reloadly Support
+    url: https://support.reloadly.com
+  termsOfService: https://www.reloadly.com/terms
+servers:
+- url: https://topups.reloadly.com
+  description: Production Server
+- url: https://topups-sandbox.reloadly.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Discounts
+  description: Retrieve discount rates available on gift card products.
+paths:
+  /discounts:
+    get:
+      operationId: listDiscounts
+      summary: List Discounts
+      description: Retrieve available discount rates for all gift card products. Returns the percentage discount applied to face value at purchase.
+      tags:
+      - Discounts
+      parameters:
+      - $ref: '#/components/parameters/PageParam'
+      - $ref: '#/components/parameters/SizeParam'
+      responses:
+        '200':
+          description: Paginated list of product discounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountsPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /discounts/products/{productId}:
+    get:
+      operationId: getProductDiscount
+      summary: Get Product Discount
+      description: Retrieve the discount rate for a specific gift card product.
+      tags:
+      - Discounts
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        description: Unique identifier of the gift card product
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Product discount details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
+    DiscountsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
+    Discount:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        percentage:
+          type: number
+          format: double
+          description: Discount percentage on the face value
+    Product:
+      type: object
+      properties:
+        productId:
+          type: integer
+          description: Unique product identifier
+        productName:
+          type: string
+          description: Display name of the gift card product
+        global:
+          type: boolean
+          description: Whether the product is redeemable globally
+        supportsPreOrder:
+          type: boolean
+          description: Whether pre-ordering is supported
+        senderFee:
+          type: number
+          format: double
+          description: Fee charged to the sender
+        discountPercentage:
+          type: number
+          format: double
+          description: Discount percentage applied to the face value
+        denominationType:
+          type: string
+          enum:
+          - FIXED
+          - RANGE
+          description: Whether the product has fixed or range denominations
+        recipientCurrencyCode:
+          type: string
+          description: Currency code for the recipient
+        minRecipientDenomination:
+          type: number
+          description: Minimum denomination for range products
+        maxRecipientDenomination:
+          type: number
+          description: Maximum denomination for range products
+        senderCurrencyCode:
+          type: string
+          description: Currency code for the sender
+        minSenderDenomination:
+          type: number
+          description: Minimum sender denomination for range products
+        maxSenderDenomination:
+          type: number
+          description: Maximum sender denomination for range products
+        fixedRecipientDenominations:
+          type: array
+          items:
+            type: number
+          description: Available fixed denomination amounts for the recipient
+        fixedSenderDenominations:
+          type: array
+          items:
+            type: number
+          description: Available fixed denomination amounts for the sender
+        brand:
+          $ref: '#/components/schemas/Brand'
+        country:
+          $ref: '#/components/schemas/Country'
+        redeemInstruction:
+          $ref: '#/components/schemas/RedeemInstruction'
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint using client credentials grant.
+externalDocs:
+  description: Reloadly Airtime API Reference
+  url: https://docs.reloadly.com/airtime
