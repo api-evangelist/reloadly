@@ -6,7 +6,20 @@ description: >-
   products in 140+ countries and 800+ mobile operators in 170+ countries. Reloadly's REST APIs use OAuth 2.0 client
   credentials authentication with separate sandbox and production environments.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/reloadly.png
 tags:
   - Gift Cards
   - Payments
@@ -19,40 +32,134 @@ created: '2025-02-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: reloadly:gift-cards
-    name: Reloadly Gift Cards API
-    description: >-
-      Order and manage digital gift cards across 3,000+ global brands including Amazon, Apple, Netflix, Spotify, and
-      Uber. Supports 14,000+ products in 140+ countries with multi-currency payouts and real-time fulfillment.
-    humanURL: https://www.reloadly.com/products/gift-card-api
-    baseURL: https://giftcards.reloadly.com
-    tags:
-      - Gift Cards
-      - Rewards
-      - Payments
-    properties:
-      - type: Documentation
-        url: https://docs.reloadly.com/gift-cards
-      - type: OpenAPI
-        url: openapi/reloadly-gift-cards-openapi.yml
-      - type: Authentication
-        url: https://docs.reloadly.com/gift-cards/tag/Authentication
-  - aid: reloadly:airtime
-    name: Reloadly Airtime API
-    description: >-
-      Send mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. Supports
-      auto-detection of mobile operators from phone numbers with real-time fulfillment and FX conversion.
-    humanURL: https://www.reloadly.com/products/airtime-api
-    baseURL: https://topups.reloadly.com
-    tags:
-      - Airtime
-      - Mobile Top-Up
-      - Data Bundles
-    properties:
-      - type: Documentation
-        url: https://docs.reloadly.com/airtime
-      - type: OpenAPI
-        url: openapi/reloadly-airtime-openapi.yml
+- aid: reloadly:reloadly-authentication-api
+  name: Reloadly Authentication API
+  description: Obtain OAuth 2.0 access tokens for API authorization.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-balance-api
+  name: Reloadly Balance API
+  description: Check your Reloadly account balance.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Balance
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-balance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-discounts-api
+  name: Reloadly Discounts API
+  description: Retrieve discount rates available on gift card products.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Discounts
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-discounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-operators-api
+  name: Reloadly Operators API
+  description: Browse mobile network operators and their coverage.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Operators
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-operators-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-orders-api
+  name: Reloadly Orders API
+  description: Place and manage gift card orders.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-products-api
+  name: Reloadly Products API
+  description: Browse and search the gift card product catalog.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-products-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-top-ups-api
+  name: Reloadly Top-Ups API
+  description: Send airtime top-ups to mobile phones worldwide.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Top-Ups
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-top-ups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
+- aid: reloadly:reloadly-transactions-api
+  name: Reloadly Transactions API
+  description: List and retrieve top-up transaction history.
+  humanURL: https://www.reloadly.com/products/gift-card-api
+  baseURL: https://giftcards.reloadly.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/reloadly-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.reloadly.com/gift-cards
+  - type: Authentication
+    url: https://docs.reloadly.com/gift-cards/tag/Authentication
+  - type: Documentation
+    url: https://docs.reloadly.com/airtime
 common:
   - type: AgenticAccess
     url: agentic-access/reloadly-agentic-access.yml
