@@ -1,0 +1,28 @@
+{
+  "provider": "reloadly",
+  "sources": [
+    "reloadly-authentication-api-openapi.yml",
+    "reloadly-balance-api-openapi.yml",
+    "reloadly-discounts-api-openapi.yml",
+    "reloadly-operators-api-openapi.yml",
+    "reloadly-orders-api-openapi.yml",
+    "reloadly-products-api-openapi.yml",
+    "reloadly-top-ups-api-openapi.yml",
+    "reloadly-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "reloadly-authentication-api-openapi.yml",
+    "reloadly-balance-api-openapi.yml",
+    "reloadly-discounts-api-openapi.yml",
+    "reloadly-operators-api-openapi.yml",
+    "reloadly-orders-api-openapi.yml",
+    "reloadly-products-api-openapi.yml",
+    "reloadly-top-ups-api-openapi.yml",
+    "reloadly-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
