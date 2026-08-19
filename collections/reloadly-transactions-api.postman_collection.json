@@ -1,0 +1,608 @@
+{
+  "item": [
+    {
+      "id": "59e7d4a1-7d89-4550-b341-6d528bfb8b74",
+      "name": "Transactions",
+      "description": {
+        "content": "List and retrieve top-up transaction history.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d53943c6-25db-43cf-98db-c2dc0f4c414b",
+          "name": "List Top-Up Transactions",
+          "request": {
+            "name": "List Top-Up Transactions",
+            "description": {
+              "content": "Retrieve a paginated list of all airtime top-up transactions. Supports filtering by date range, phone number, and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topups",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "25",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Filter from this date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "Filter to this date (YYYY-MM-DD)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5859b70-4cae-4a38-95c4-885f796fec44",
+              "name": "Paginated list of top-up transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"transactionId\": 8668,\n      \"status\": \"FAILED\",\n      \"operatorTransactionId\": \"string\",\n      \"customIdentifier\": \"string\",\n      \"recipientPhone\": \"string\",\n      \"recipientEmail\": \"string\",\n      \"senderPhone\": \"string\",\n      \"countryCode\": \"string\",\n      \"operatorId\": 5161,\n      \"operatorName\": \"string\",\n      \"discount\": 6268.929571536995,\n      \"discountCurrencyCode\": \"string\",\n      \"requestedAmount\": 7898.422062014351,\n      \"requestedAmountCurrencyCode\": \"string\",\n      \"deliveredAmount\": 7219.958610506328,\n      \"deliveredAmountCurrencyCode\": \"string\",\n      \"transactionDate\": \"1950-11-22T07:00:48.579Z\"\n    },\n    {\n      \"transactionId\": 6897,\n      \"status\": \"REFUNDED\",\n      \"operatorTransactionId\": \"string\",\n      \"customIdentifier\": \"string\",\n      \"recipientPhone\": \"string\",\n      \"recipientEmail\": \"string\",\n      \"senderPhone\": \"string\",\n      \"countryCode\": \"string\",\n      \"operatorId\": 5968,\n      \"operatorName\": \"string\",\n      \"discount\": 3527.1734757538766,\n      \"discountCurrencyCode\": \"string\",\n      \"requestedAmount\": 802.7260644118028,\n      \"requestedAmountCurrencyCode\": \"string\",\n      \"deliveredAmount\": 1870.3575149188478,\n      \"deliveredAmountCurrencyCode\": \"string\",\n      \"transactionDate\": \"1998-05-01T21:16:07.771Z\"\n    }\n  ],\n  \"totalElements\": 4749,\n  \"totalPages\": 4708,\n  \"last\": true,\n  \"number\": 3563,\n  \"size\": 6341\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a113c699-ecc0-4813-a692-2ceeeb922bc8",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1968-02-28T13:17:30.177Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1664619c-b1e8-4fef-a1de-9ab03bd2d33d",
+          "name": "Get Top-Up Transaction",
+          "request": {
+            "name": "Get Top-Up Transaction",
+            "description": {
+              "content": "Retrieve details for a specific airtime top-up transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topups",
+                "transactions",
+                ":transactionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transactionId",
+                  "description": "(Required) Unique transaction identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bead11e3-2472-4f07-916e-84be98296be5",
+              "name": "Transaction details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups",
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transactionId",
+                      "description": "(Required) Unique transaction identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": 9491,\n  \"status\": \"FAILED\",\n  \"operatorTransactionId\": \"string\",\n  \"customIdentifier\": \"string\",\n  \"recipientPhone\": \"string\",\n  \"recipientEmail\": \"string\",\n  \"senderPhone\": \"string\",\n  \"countryCode\": \"string\",\n  \"operatorId\": 8125,\n  \"operatorName\": \"string\",\n  \"discount\": 3928.789052162127,\n  \"discountCurrencyCode\": \"string\",\n  \"requestedAmount\": 9117.258372988703,\n  \"requestedAmountCurrencyCode\": \"string\",\n  \"deliveredAmount\": 1231.2640291938892,\n  \"deliveredAmountCurrencyCode\": \"string\",\n  \"transactionDate\": \"1978-07-27T05:41:47.755Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4c83624-a999-4a9f-969c-e5c421c7eb1b",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups",
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transactionId",
+                      "description": "(Required) Unique transaction identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1968-02-28T13:17:30.177Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "887c1b11-5d2b-4c1e-99d6-a4542dcc93b8",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups",
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transactionId",
+                      "description": "(Required) Unique transaction identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1968-02-28T13:17:30.177Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f870fd16-f094-4818-9ad3-539f72b5d8de",
+          "name": "List Transactions",
+          "request": {
+            "name": "List Transactions",
+            "description": {
+              "content": "Retrieve a paginated list of all transactions on the account including gift card orders, balance top-ups, and refunds. Supports filtering by date range and transaction type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "25",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Filter transactions from this date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "Filter transactions to this date (YYYY-MM-DD)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b070e19f-80f6-4ea5-9434-c4674a8281ec",
+              "name": "Paginated list of transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"transactionId\": 4007,\n      \"amount\": 4586.132122399959,\n      \"discount\": 4484.016384919065,\n      \"currencyCode\": \"string\",\n      \"fee\": 4569.347213255155,\n      \"status\": \"string\",\n      \"product\": {\n        \"productId\": 2927,\n        \"productName\": \"string\",\n        \"global\": false,\n        \"supportsPreOrder\": false,\n        \"senderFee\": 5758.433919605108,\n        \"discountPercentage\": 5986.918702741972,\n        \"denominationType\": \"RANGE\",\n        \"recipientCurrencyCode\": \"string\",\n        \"minRecipientDenomination\": 8124.161614032049,\n        \"maxRecipientDenomination\": 1255.7537949650177,\n        \"senderCurrencyCode\": \"string\",\n        \"minSenderDenomination\": 7272.793348431347,\n        \"maxSenderDenomination\": 8320.11827137501,\n        \"fixedRecipientDenominations\": [\n          8307.409175590949,\n          283.88197884892776\n        ],\n        \"fixedSenderDenominations\": [\n          1711.3691872416048,\n          1164.981509954567\n        ],\n        \"brand\": {\n          \"brandId\": 9484,\n          \"brandName\": \"string\"\n        },\n        \"country\": {\n          \"isoName\": \"string\",\n          \"name\": \"string\",\n          \"flagUrl\": \"https://DUchpKHtmeVMpuFRcFzvDiEWO.wszleSyPIAlstkox7NzDVoJMQ+Y-u6lykYBP1sY4aRxG\"\n        },\n        \"redeemInstruction\": {\n          \"concise\": \"string\",\n          \"verbose\": \"string\"\n        }\n      },\n      \"date\": \"2005-10-13T22:19:58.024Z\"\n    },\n    {\n      \"transactionId\": 4034,\n      \"amount\": 6196.589090052693,\n      \"discount\": 7192.704907428877,\n      \"currencyCode\": \"string\",\n      \"fee\": 5038.610718212924,\n      \"status\": \"string\",\n      \"product\": {\n        \"productId\": 6702,\n        \"productName\": \"string\",\n        \"global\": false,\n        \"supportsPreOrder\": false,\n        \"senderFee\": 9335.146928967064,\n        \"discountPercentage\": 2890.171356384598,\n        \"denominationType\": \"FIXED\",\n        \"recipientCurrencyCode\": \"string\",\n        \"minRecipientDenomination\": 5182.015327086873,\n        \"maxRecipientDenomination\": 472.5700331920735,\n        \"senderCurrencyCode\": \"string\",\n        \"minSenderDenomination\": 6744.937889036211,\n        \"maxSenderDenomination\": 3438.5638559281383,\n        \"fixedRecipientDenominations\": [\n          2354.669005263195,\n          8119.652942896074\n        ],\n        \"fixedSenderDenominations\": [\n          715.9781149940003,\n          8573.235484961273\n        ],\n        \"brand\": {\n          \"brandId\": 8559,\n          \"brandName\": \"string\"\n        },\n        \"country\": {\n          \"isoName\": \"string\",\n          \"name\": \"string\",\n          \"flagUrl\": \"https://bNzB.kbzPLYXQpjQc5m,ISIZxAiV9IhdSVHlp+71Z1HjtWSSqhFTauVURVo+rP3tcmk,+Xwl\"\n        },\n        \"redeemInstruction\": {\n          \"concise\": \"string\",\n          \"verbose\": \"string\"\n        }\n      },\n      \"date\": \"1952-09-26T19:01:05.643Z\"\n    }\n  ],\n  \"totalElements\": 2301,\n  \"totalPages\": 6010,\n  \"last\": false,\n  \"number\": 8799,\n  \"size\": 8861\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86421b80-ddb3-48f8-8c5c-d6ddf635eb68",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1968-02-28T13:17:30.177Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://topups.reloadly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2a10cf14-02d9-4db3-aacc-c0cbe46003f7",
+    "name": "Reloadly Airtime Authentication Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.\n\nContact Support:\n Name: Reloadly Support",
+      "type": "text/plain"
+    }
+  }
+}

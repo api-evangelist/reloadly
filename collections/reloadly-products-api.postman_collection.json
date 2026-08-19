@@ -1,0 +1,449 @@
+{
+  "item": [
+    {
+      "id": "81e0499d-bcd2-4495-a883-c8904df8c9d6",
+      "name": "Products",
+      "description": {
+        "content": "Browse and search the gift card product catalog.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03b8a406-67e3-40d0-a63b-fd615c57d877",
+          "name": "List Products",
+          "request": {
+            "name": "List Products",
+            "description": {
+              "content": "Retrieve a paginated list of available gift card products. Supports filtering by country, currency, and product category. Returns brand details, denominations, discount rates, and redemption instructions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "25",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "countryCode",
+                  "value": "<string>",
+                  "description": "Filter by ISO 3166-1 alpha-2 country code"
+                },
+                {
+                  "disabled": false,
+                  "key": "currencyCode",
+                  "value": "<string>",
+                  "description": "Filter by ISO 4217 currency code"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeRange",
+                  "value": "<boolean>",
+                  "description": "Include range-denomination products"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeFixed",
+                  "value": "<boolean>",
+                  "description": "Include fixed-denomination products"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e052a404-f84d-4e3a-8be8-245e95fc1a65",
+              "name": "Paginated list of gift card products",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "US"
+                    },
+                    {
+                      "key": "currencyCode",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "includeRange",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeFixed",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"productId\": 4356,\n      \"productName\": \"string\",\n      \"global\": true,\n      \"supportsPreOrder\": true,\n      \"senderFee\": 3198.5062656094733,\n      \"discountPercentage\": 9274.556796756684,\n      \"denominationType\": \"RANGE\",\n      \"recipientCurrencyCode\": \"string\",\n      \"minRecipientDenomination\": 2516.4658056367352,\n      \"maxRecipientDenomination\": 3503.593599340735,\n      \"senderCurrencyCode\": \"string\",\n      \"minSenderDenomination\": 7709.87557500365,\n      \"maxSenderDenomination\": 301.0161896825381,\n      \"fixedRecipientDenominations\": [\n        7750.641960206941,\n        7409.670730434888\n      ],\n      \"fixedSenderDenominations\": [\n        1675.129477953472,\n        2261.1081691356926\n      ],\n      \"brand\": {\n        \"brandId\": 3546,\n        \"brandName\": \"string\"\n      },\n      \"country\": {\n        \"isoName\": \"string\",\n        \"name\": \"string\",\n        \"flagUrl\": \"https://YotxoDAYUsVoGhupMtQhXSellbVTUk.zooEqhyqh,s+z+arLMxf+rMJTQRYu0PMN3SHC\"\n      },\n      \"redeemInstruction\": {\n        \"concise\": \"string\",\n        \"verbose\": \"string\"\n      }\n    },\n    {\n      \"productId\": 5658,\n      \"productName\": \"string\",\n      \"global\": false,\n      \"supportsPreOrder\": true,\n      \"senderFee\": 8144.86054879002,\n      \"discountPercentage\": 1870.404900002407,\n      \"denominationType\": \"RANGE\",\n      \"recipientCurrencyCode\": \"string\",\n      \"minRecipientDenomination\": 2400.6174925780997,\n      \"maxRecipientDenomination\": 5259.585761124693,\n      \"senderCurrencyCode\": \"string\",\n      \"minSenderDenomination\": 877.2778416284433,\n      \"maxSenderDenomination\": 8314.4147917706,\n      \"fixedRecipientDenominations\": [\n        5184.664877473987,\n        9083.133871612674\n      ],\n      \"fixedSenderDenominations\": [\n        5541.982283256964,\n        5192.156764964485\n      ],\n      \"brand\": {\n        \"brandId\": 5297,\n        \"brandName\": \"string\"\n      },\n      \"country\": {\n        \"isoName\": \"string\",\n        \"name\": \"string\",\n        \"flagUrl\": \"https://PXAZHaBKNWACIChUezTGVRCQLHmzfEe.fmjeEL9e6uA\"\n      },\n      \"redeemInstruction\": {\n        \"concise\": \"string\",\n        \"verbose\": \"string\"\n      }\n    }\n  ],\n  \"totalElements\": 3240,\n  \"totalPages\": 5062,\n  \"last\": false,\n  \"number\": 8076,\n  \"size\": 4945\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f791a47-4416-4760-a516-4bd8c9518862",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "US"
+                    },
+                    {
+                      "key": "currencyCode",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "includeRange",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeFixed",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1954-08-27T12:34:16.640Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4679096e-5dc3-49b2-8e42-8ebf793530f9",
+          "name": "Get Product",
+          "request": {
+            "name": "Get Product",
+            "description": {
+              "content": "Retrieve full details for a specific gift card product including available denominations, discount rate, redemption instructions, supported countries, and brand information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":productId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productId",
+                  "description": "(Required) Unique identifier of the gift card product"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a941d12-ede9-4822-a4aa-c3d568bdc34c",
+              "name": "Gift card product details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":productId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productId",
+                      "description": "(Required) Unique identifier of the gift card product"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productId\": 9590,\n  \"productName\": \"string\",\n  \"global\": true,\n  \"supportsPreOrder\": true,\n  \"senderFee\": 3174.8314396487976,\n  \"discountPercentage\": 2481.460859174017,\n  \"denominationType\": \"RANGE\",\n  \"recipientCurrencyCode\": \"string\",\n  \"minRecipientDenomination\": 2898.1122933607194,\n  \"maxRecipientDenomination\": 21.167389761310716,\n  \"senderCurrencyCode\": \"string\",\n  \"minSenderDenomination\": 9118.17372431352,\n  \"maxSenderDenomination\": 6239.804161475042,\n  \"fixedRecipientDenominations\": [\n    4196.487955072662,\n    107.73956108643623\n  ],\n  \"fixedSenderDenominations\": [\n    2762.820587736392,\n    2571.084808749089\n  ],\n  \"brand\": {\n    \"brandId\": 8541,\n    \"brandName\": \"string\"\n  },\n  \"country\": {\n    \"isoName\": \"string\",\n    \"name\": \"string\",\n    \"flagUrl\": \"https://X.fzyrAaXGHxO4SbfPrmwUVK40tDQuj+vNdV8szmrNZ3dtLomcG\"\n  },\n  \"redeemInstruction\": {\n    \"concise\": \"string\",\n    \"verbose\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c5dc2e0-d656-4678-9d65-984b07de1064",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":productId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productId",
+                      "description": "(Required) Unique identifier of the gift card product"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1954-08-27T12:34:16.640Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca57f991-d0be-4373-8514-d5485e3f36e2",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":productId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productId",
+                      "description": "(Required) Unique identifier of the gift card product"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1954-08-27T12:34:16.640Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://topups.reloadly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "31af9ddc-32fd-404e-841e-bbcae568ce8a",
+    "name": "Reloadly Airtime Authentication Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.\n\nContact Support:\n Name: Reloadly Support",
+      "type": "text/plain"
+    }
+  }
+}

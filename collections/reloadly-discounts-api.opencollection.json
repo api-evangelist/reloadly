@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reloadly Airtime Authentication Discounts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/discounts",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve available discount rates for all gift card products. Returns the percentage discount applied to face value at purchase."
+        },
+        {
+          "info": {
+            "name": "Get Product Discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/discounts/products/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the gift card product"
+              }
+            ]
+          },
+          "docs": "Retrieve the discount rate for a specific gift card product."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

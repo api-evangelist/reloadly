@@ -1,0 +1,397 @@
+{
+  "item": [
+    {
+      "id": "bf520d71-d78d-449b-83d2-b18576ea36df",
+      "name": "Discounts",
+      "description": {
+        "content": "Retrieve discount rates available on gift card products.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "711dda9f-ca62-4005-9830-6afbcd8c1e01",
+          "name": "List Discounts",
+          "request": {
+            "name": "List Discounts",
+            "description": {
+              "content": "Retrieve available discount rates for all gift card products. Returns the percentage discount applied to face value at purchase.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "25",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a95684d-14cc-4689-a44b-0f6d98be743e",
+              "name": "Paginated list of product discounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"product\": {\n        \"productId\": 2558,\n        \"productName\": \"string\",\n        \"global\": false,\n        \"supportsPreOrder\": true,\n        \"senderFee\": 4870.014158265071,\n        \"discountPercentage\": 8092.284086095187,\n        \"denominationType\": \"FIXED\",\n        \"recipientCurrencyCode\": \"string\",\n        \"minRecipientDenomination\": 9728.97032013606,\n        \"maxRecipientDenomination\": 6926.472774259541,\n        \"senderCurrencyCode\": \"string\",\n        \"minSenderDenomination\": 5772.892506593325,\n        \"maxSenderDenomination\": 1549.0625283190561,\n        \"fixedRecipientDenominations\": [\n          6101.725553478933,\n          6353.21876380152\n        ],\n        \"fixedSenderDenominations\": [\n          245.81742397896568,\n          3758.7190833827453\n        ],\n        \"brand\": {\n          \"brandId\": 5151,\n          \"brandName\": \"string\"\n        },\n        \"country\": {\n          \"isoName\": \"string\",\n          \"name\": \"string\",\n          \"flagUrl\": \"https://dtONwjlcVrOpRwqi.olmjlIYu-VbAXypRvjVLpoUF\"\n        },\n        \"redeemInstruction\": {\n          \"concise\": \"string\",\n          \"verbose\": \"string\"\n        }\n      },\n      \"percentage\": 4580.476982047292\n    },\n    {\n      \"product\": {\n        \"productId\": 5464,\n        \"productName\": \"string\",\n        \"global\": false,\n        \"supportsPreOrder\": false,\n        \"senderFee\": 7715.043938169171,\n        \"discountPercentage\": 2129.076683606306,\n        \"denominationType\": \"FIXED\",\n        \"recipientCurrencyCode\": \"string\",\n        \"minRecipientDenomination\": 5309.632624721617,\n        \"maxRecipientDenomination\": 5280.213786396858,\n        \"senderCurrencyCode\": \"string\",\n        \"minSenderDenomination\": 8342.909022091504,\n        \"maxSenderDenomination\": 9300.47751641882,\n        \"fixedRecipientDenominations\": [\n          2602.105799648069,\n          5941.7182342138785\n        ],\n        \"fixedSenderDenominations\": [\n          2243.9206180185524,\n          8929.308324048441\n        ],\n        \"brand\": {\n          \"brandId\": 4634,\n          \"brandName\": \"string\"\n        },\n        \"country\": {\n          \"isoName\": \"string\",\n          \"name\": \"string\",\n          \"flagUrl\": \"https://MwUHlrrNsWKoelweRIFs.mwliwFBOVb+duKcEheT,5P,AEZKEyQXFjeN28tyEUuD+KHmjlw5Kn53Gmx-plF0DQ\"\n        },\n        \"redeemInstruction\": {\n          \"concise\": \"string\",\n          \"verbose\": \"string\"\n        }\n      },\n      \"percentage\": 1010.4840641780899\n    }\n  ],\n  \"totalElements\": 2200,\n  \"totalPages\": 3960,\n  \"last\": false,\n  \"number\": 4071,\n  \"size\": 8979\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f152714-2b73-4867-b84e-9f011e01bf79",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1964-07-06T10:43:07.150Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6514c3c5-49db-4b97-993a-2b510d28ead8",
+          "name": "Get Product Discount",
+          "request": {
+            "name": "Get Product Discount",
+            "description": {
+              "content": "Retrieve the discount rate for a specific gift card product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discounts",
+                "products",
+                ":productId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "productId",
+                  "description": "(Required) Unique identifier of the gift card product"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f2a42420-548a-453a-aa53-8c5cf3c97be8",
+              "name": "Product discount details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts",
+                    "products",
+                    ":productId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productId",
+                      "description": "(Required) Unique identifier of the gift card product"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"product\": {\n    \"productId\": 3299,\n    \"productName\": \"string\",\n    \"global\": true,\n    \"supportsPreOrder\": true,\n    \"senderFee\": 1863.5585857261606,\n    \"discountPercentage\": 9896.905577872181,\n    \"denominationType\": \"RANGE\",\n    \"recipientCurrencyCode\": \"string\",\n    \"minRecipientDenomination\": 8126.148799739759,\n    \"maxRecipientDenomination\": 4177.8442808661675,\n    \"senderCurrencyCode\": \"string\",\n    \"minSenderDenomination\": 1868.04977241814,\n    \"maxSenderDenomination\": 7351.720913838858,\n    \"fixedRecipientDenominations\": [\n      7850.482593374686,\n      1601.2647823543502\n    ],\n    \"fixedSenderDenominations\": [\n      1757.4801750024371,\n      8742.353284354687\n    ],\n    \"brand\": {\n      \"brandId\": 2141,\n      \"brandName\": \"string\"\n    },\n    \"country\": {\n      \"isoName\": \"string\",\n      \"name\": \"string\",\n      \"flagUrl\": \"http://jMDSxNSroaJMzCpcGyi.brdO1SQKtsSHokX34RQ\"\n    },\n    \"redeemInstruction\": {\n      \"concise\": \"string\",\n      \"verbose\": \"string\"\n    }\n  },\n  \"percentage\": 1282.459150313313\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c04e6d22-753f-4ab6-b8cb-71d32ac6c764",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts",
+                    "products",
+                    ":productId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productId",
+                      "description": "(Required) Unique identifier of the gift card product"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1964-07-06T10:43:07.150Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cce80a5c-27ad-4686-b336-a7ec4c2789ae",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts",
+                    "products",
+                    ":productId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "productId",
+                      "description": "(Required) Unique identifier of the gift card product"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1964-07-06T10:43:07.150Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://topups.reloadly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5739a89c-2ecd-4786-9c58-c5138aec741b",
+    "name": "Reloadly Airtime Authentication Discounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.\n\nContact Support:\n Name: Reloadly Support",
+      "type": "text/plain"
+    }
+  }
+}

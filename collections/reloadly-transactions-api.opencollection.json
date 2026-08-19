@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reloadly Airtime Authentication Transactions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Top-Up Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/topups/transactions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter from this date (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter to this date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all airtime top-up transactions. Supports filtering by date range, phone number, and status."
+        },
+        {
+          "info": {
+            "name": "Get Top-Up Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/topups/transactions/:transactionId",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique transaction identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific airtime top-up transaction."
+        },
+        {
+          "info": {
+            "name": "List Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/transactions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions from this date (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter transactions to this date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all transactions on the account including gift card orders, balance top-ups, and refunds. Supports filtering by date range and transaction type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

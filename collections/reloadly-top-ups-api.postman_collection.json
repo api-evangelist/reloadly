@@ -1,0 +1,242 @@
+{
+  "item": [
+    {
+      "id": "a26ce91d-3334-49ce-8069-5bdec6b234df",
+      "name": "Top-Ups",
+      "description": {
+        "content": "Send airtime top-ups to mobile phones worldwide.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "62dce16b-6617-4a8c-887f-a6a35112e94b",
+          "name": "Send Top-Up",
+          "request": {
+            "name": "Send Top-Up",
+            "description": {
+              "content": "Send an airtime top-up to a mobile phone. Specify the operator ID or let the API auto-detect it from the phone number and country. Returns a transaction object with delivery confirmation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operatorId\": \"<integer>\",\n  \"amount\": \"<double>\",\n  \"useLocalAmount\": \"<boolean>\",\n  \"customIdentifier\": \"<string>\",\n  \"recipientPhone\": {\n    \"countryCode\": \"<string>\",\n    \"number\": \"<string>\"\n  },\n  \"senderPhone\": {\n    \"countryCode\": \"<string>\",\n    \"number\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e6c8d28-4572-49f0-bb51-8ef5746898b2",
+              "name": "Top-up sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operatorId\": \"<integer>\",\n  \"amount\": \"<double>\",\n  \"useLocalAmount\": \"<boolean>\",\n  \"customIdentifier\": \"<string>\",\n  \"recipientPhone\": {\n    \"countryCode\": \"string\",\n    \"number\": \"string\"\n  },\n  \"senderPhone\": {\n    \"countryCode\": \"string\",\n    \"number\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": 5175,\n  \"status\": \"FAILED\",\n  \"operatorTransactionId\": \"string\",\n  \"customIdentifier\": \"string\",\n  \"recipientPhone\": \"string\",\n  \"recipientEmail\": \"string\",\n  \"senderPhone\": \"string\",\n  \"countryCode\": \"string\",\n  \"operatorId\": 819,\n  \"operatorName\": \"string\",\n  \"discount\": 9769.203830415736,\n  \"discountCurrencyCode\": \"string\",\n  \"requestedAmount\": 9342.34861853221,\n  \"requestedAmountCurrencyCode\": \"string\",\n  \"deliveredAmount\": 4101.797658627448,\n  \"deliveredAmountCurrencyCode\": \"string\",\n  \"transactionDate\": \"1956-09-14T05:20:42.447Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a2df3bb-8045-4176-998d-01e52c6f2f11",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operatorId\": \"<integer>\",\n  \"amount\": \"<double>\",\n  \"useLocalAmount\": \"<boolean>\",\n  \"customIdentifier\": \"<string>\",\n  \"recipientPhone\": {\n    \"countryCode\": \"string\",\n    \"number\": \"string\"\n  },\n  \"senderPhone\": {\n    \"countryCode\": \"string\",\n    \"number\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1960-12-13T01:32:55.293Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82fa7551-7bf5-4e47-95c8-51062759b77b",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operatorId\": \"<integer>\",\n  \"amount\": \"<double>\",\n  \"useLocalAmount\": \"<boolean>\",\n  \"customIdentifier\": \"<string>\",\n  \"recipientPhone\": {\n    \"countryCode\": \"string\",\n    \"number\": \"string\"\n  },\n  \"senderPhone\": {\n    \"countryCode\": \"string\",\n    \"number\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1960-12-13T01:32:55.293Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://topups.reloadly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "93673633-f06f-4d72-ae78-85c353407c55",
+    "name": "Reloadly Airtime Authentication Top-Ups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.\n\nContact Support:\n Name: Reloadly Support",
+      "type": "text/plain"
+    }
+  }
+}

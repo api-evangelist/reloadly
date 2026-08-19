@@ -1,0 +1,442 @@
+{
+  "item": [
+    {
+      "id": "e2186eef-6703-46be-a4f2-a0d9f49540ce",
+      "name": "Orders",
+      "description": {
+        "content": "Place and manage gift card orders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f76eac06-41d7-4f0d-afb0-b0723ea11147",
+          "name": "Place Order",
+          "request": {
+            "name": "Place Order",
+            "description": {
+              "content": "Place a gift card order for a specific product and denomination. Successful orders return an order object with the gift card code, PIN, and redemption instructions. Orders are fulfilled in real-time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"<integer>\",\n  \"quantity\": \"<integer>\",\n  \"unitPrice\": \"<double>\",\n  \"senderName\": \"<string>\",\n  \"recipientEmail\": \"<email>\",\n  \"customIdentifier\": \"<string>\",\n  \"preOrder\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4334892-d5a4-48a2-9cee-7a6f2c98cfaf",
+              "name": "Order placed and gift card delivered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"<integer>\",\n  \"quantity\": \"<integer>\",\n  \"unitPrice\": \"<double>\",\n  \"senderName\": \"<string>\",\n  \"recipientEmail\": \"<email>\",\n  \"customIdentifier\": \"<string>\",\n  \"preOrder\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": 6399,\n  \"amount\": 9711.328147639213,\n  \"discount\": 2516.7902927654463,\n  \"currencyCode\": \"string\",\n  \"fee\": 6144.70796276197,\n  \"recipientEmail\": \"FQ3ti-9K4Ctxx@IW.aq\",\n  \"customIdentifier\": \"string\",\n  \"status\": \"string\",\n  \"product\": {\n    \"productId\": 2464,\n    \"productName\": \"string\",\n    \"global\": false,\n    \"supportsPreOrder\": true,\n    \"senderFee\": 6383.477577506971,\n    \"discountPercentage\": 9225.408066782555,\n    \"denominationType\": \"RANGE\",\n    \"recipientCurrencyCode\": \"string\",\n    \"minRecipientDenomination\": 8544.145942706795,\n    \"maxRecipientDenomination\": 2871.2049486268265,\n    \"senderCurrencyCode\": \"string\",\n    \"minSenderDenomination\": 9143.43165890228,\n    \"maxSenderDenomination\": 375.3300754279409,\n    \"fixedRecipientDenominations\": [\n      2949.6286930869974,\n      590.9602823885418\n    ],\n    \"fixedSenderDenominations\": [\n      6544.146495808188,\n      2952.5015469186155\n    ],\n    \"brand\": {\n      \"brandId\": 2694,\n      \"brandName\": \"string\"\n    },\n    \"country\": {\n      \"isoName\": \"string\",\n      \"name\": \"string\",\n      \"flagUrl\": \"http://YuoQnyciCYyzaTJAHcs.pamq3KztP\"\n    },\n    \"redeemInstruction\": {\n      \"concise\": \"string\",\n      \"verbose\": \"string\"\n    }\n  },\n  \"smiles\": [\n    {\n      \"code\": \"string\",\n      \"pinCode\": \"string\",\n      \"validity\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"pinCode\": \"string\",\n      \"validity\": \"string\"\n    }\n  ],\n  \"date\": \"1963-05-01T13:59:29.418Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cda1ccda-586d-46d0-a2f5-63b5a5648a99",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"<integer>\",\n  \"quantity\": \"<integer>\",\n  \"unitPrice\": \"<double>\",\n  \"senderName\": \"<string>\",\n  \"recipientEmail\": \"<email>\",\n  \"customIdentifier\": \"<string>\",\n  \"preOrder\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1987-02-21T19:10:51.900Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "399bee8a-de46-4e21-ba1b-fbcd6d77fcdb",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"<integer>\",\n  \"quantity\": \"<integer>\",\n  \"unitPrice\": \"<double>\",\n  \"senderName\": \"<string>\",\n  \"recipientEmail\": \"<email>\",\n  \"customIdentifier\": \"<string>\",\n  \"preOrder\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1987-02-21T19:10:51.900Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2373585-3baf-490e-a2ec-43cc37a43819",
+          "name": "Get Order",
+          "request": {
+            "name": "Get Order",
+            "description": {
+              "content": "Retrieve the details of a specific gift card order including the gift card code, PIN, redemption instructions, and order status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) Unique identifier of the order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f8fa1c5-f4b5-48b0-aed5-9a6aad96b534",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) Unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": 6399,\n  \"amount\": 9711.328147639213,\n  \"discount\": 2516.7902927654463,\n  \"currencyCode\": \"string\",\n  \"fee\": 6144.70796276197,\n  \"recipientEmail\": \"FQ3ti-9K4Ctxx@IW.aq\",\n  \"customIdentifier\": \"string\",\n  \"status\": \"string\",\n  \"product\": {\n    \"productId\": 2464,\n    \"productName\": \"string\",\n    \"global\": false,\n    \"supportsPreOrder\": true,\n    \"senderFee\": 6383.477577506971,\n    \"discountPercentage\": 9225.408066782555,\n    \"denominationType\": \"RANGE\",\n    \"recipientCurrencyCode\": \"string\",\n    \"minRecipientDenomination\": 8544.145942706795,\n    \"maxRecipientDenomination\": 2871.2049486268265,\n    \"senderCurrencyCode\": \"string\",\n    \"minSenderDenomination\": 9143.43165890228,\n    \"maxSenderDenomination\": 375.3300754279409,\n    \"fixedRecipientDenominations\": [\n      2949.6286930869974,\n      590.9602823885418\n    ],\n    \"fixedSenderDenominations\": [\n      6544.146495808188,\n      2952.5015469186155\n    ],\n    \"brand\": {\n      \"brandId\": 2694,\n      \"brandName\": \"string\"\n    },\n    \"country\": {\n      \"isoName\": \"string\",\n      \"name\": \"string\",\n      \"flagUrl\": \"http://YuoQnyciCYyzaTJAHcs.pamq3KztP\"\n    },\n    \"redeemInstruction\": {\n      \"concise\": \"string\",\n      \"verbose\": \"string\"\n    }\n  },\n  \"smiles\": [\n    {\n      \"code\": \"string\",\n      \"pinCode\": \"string\",\n      \"validity\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"pinCode\": \"string\",\n      \"validity\": \"string\"\n    }\n  ],\n  \"date\": \"1963-05-01T13:59:29.418Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f293f6da-3058-4588-acbb-4932d91c7f88",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) Unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1987-02-21T19:10:51.900Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b237e29-2ba3-4f71-b328-5505ba83133d",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) Unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1987-02-21T19:10:51.900Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\",\n  \"infoLink\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://topups.reloadly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a588ad9b-5a72-4eda-992a-5f4d64969c6c",
+    "name": "Reloadly Airtime Authentication Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.\n\nContact Support:\n Name: Reloadly Support",
+      "type": "text/plain"
+    }
+  }
+}

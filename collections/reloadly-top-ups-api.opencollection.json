@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reloadly Airtime Authentication Top-Ups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Top-Ups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send Top-Up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://topups.reloadly.com/topups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an airtime top-up to a mobile phone. Specify the operator ID or let the API auto-detect it from the phone number and country. Returns a transaction object with delivery confirmation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Reloadly Airtime Authentication Operators API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Operators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/operators",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by ISO 3166-1 alpha-2 country code"
+              },
+              {
+                "name": "includeBundles",
+                "value": "",
+                "type": "query",
+                "description": "Include data bundle operators"
+              },
+              {
+                "name": "includeData",
+                "value": "",
+                "type": "query",
+                "description": "Include data-only operators"
+              },
+              {
+                "name": "includePin",
+                "value": "",
+                "type": "query",
+                "description": "Include PIN-based top-up operators"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of supported mobile network operators. Supports filtering by country code. Returns operator details including name, country, supported denominations, and FX rates."
+        },
+        {
+          "info": {
+            "name": "Get Operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/operators/:operatorId",
+            "params": [
+              {
+                "name": "operatorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the operator"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific mobile network operator including coverage, denominations, and FX exchange rate."
+        },
+        {
+          "info": {
+            "name": "Auto-Detect Operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://topups.reloadly.com/operators/auto-detect/phone/:phone/countries/:countryCode",
+            "params": [
+              {
+                "name": "phone",
+                "value": "",
+                "type": "path",
+                "description": "Phone number in E.164 format (without leading +)"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-1 alpha-2 country code"
+              },
+              {
+                "name": "suggestedAmounts",
+                "value": "",
+                "type": "query",
+                "description": "Include suggested top-up amounts"
+              },
+              {
+                "name": "suggestedAmountsMap",
+                "value": "",
+                "type": "query",
+                "description": "Include suggested amounts as a map"
+              }
+            ]
+          },
+          "docs": "Automatically detect the mobile network operator for a phone number in a given country. Returns the detected operator with confidence score."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,733 @@
+{
+  "item": [
+    {
+      "id": "edc5a49d-28ee-406b-af4e-ba3d665beb8c",
+      "name": "Operators",
+      "description": {
+        "content": "Browse mobile network operators and their coverage.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c4bb247-8ad2-4bd3-980f-98088117b997",
+          "name": "List Operators",
+          "request": {
+            "name": "List Operators",
+            "description": {
+              "content": "Retrieve a paginated list of supported mobile network operators. Supports filtering by country code. Returns operator details including name, country, supported denominations, and FX rates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "25",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "countryCode",
+                  "value": "<string>",
+                  "description": "Filter by ISO 3166-1 alpha-2 country code"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeBundles",
+                  "value": "<boolean>",
+                  "description": "Include data bundle operators"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeData",
+                  "value": "<boolean>",
+                  "description": "Include data-only operators"
+                },
+                {
+                  "disabled": false,
+                  "key": "includePin",
+                  "value": "<boolean>",
+                  "description": "Include PIN-based top-up operators"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0615e568-48f3-44b1-b7f4-815c1b293de9",
+              "name": "Paginated list of operators",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "US"
+                    },
+                    {
+                      "key": "includeBundles",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includePin",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"operatorId\": 3279,\n      \"name\": \"string\",\n      \"bundle\": true,\n      \"data\": true,\n      \"pin\": true,\n      \"denominationType\": \"FIXED\",\n      \"localFixedAmounts\": [\n        73.93551618498529,\n        8883.857987852025\n      ],\n      \"internationalFixedAmounts\": [\n        636.823103925922,\n        7462.4278545173565\n      ],\n      \"localMinAmount\": 4574.69452976141,\n      \"localMaxAmount\": 8418.403206895044,\n      \"internationalMinAmount\": 441.17589067385165,\n      \"internationalMaxAmount\": 5665.648026966222,\n      \"country\": {\n        \"isoName\": \"string\",\n        \"name\": \"string\"\n      },\n      \"fxRate\": {\n        \"currencyCode\": \"string\",\n        \"rate\": 5108.630566892435\n      },\n      \"logoUrls\": [\n        \"https://cVdhejJzvVPzubABDGRfLscEb.zhulsP3tG93dkkF+QG.CkFAaGlh--uDa9izoHzs-IwRhxXCngN\",\n        \"https://lspvE.wjDqahnHVtNyy8.zkIfKCFSI6S4DbrUCJzeTgMZ,lwHp-HpKyxJGkNjhoLTSzfUr+s4QpD3wz\"\n      ]\n    },\n    {\n      \"operatorId\": 5386,\n      \"name\": \"string\",\n      \"bundle\": true,\n      \"data\": true,\n      \"pin\": true,\n      \"denominationType\": \"RANGE\",\n      \"localFixedAmounts\": [\n        1240.9157731338382,\n        2446.512922052132\n      ],\n      \"internationalFixedAmounts\": [\n        3344.253690818657,\n        4573.65915952501\n      ],\n      \"localMinAmount\": 2006.0095787309108,\n      \"localMaxAmount\": 8405.50314145204,\n      \"internationalMinAmount\": 6394.956673209369,\n      \"internationalMaxAmount\": 7055.355894407099,\n      \"country\": {\n        \"isoName\": \"string\",\n        \"name\": \"string\"\n      },\n      \"fxRate\": {\n        \"currencyCode\": \"string\",\n        \"rate\": 3803.576095584953\n      },\n      \"logoUrls\": [\n        \"https://hQEtJtiyzgIqHXYavJnDvhVJT.pxFYHi+bjcwVZss3KDmZrLe\",\n        \"http://FhTD.rqhARXRITGuE.OutCWLAdIteKqxMOkkMNozLe,AUYIC4b.mI\"\n      ]\n    }\n  ],\n  \"totalElements\": 475,\n  \"totalPages\": 2166,\n  \"last\": true,\n  \"number\": 4115,\n  \"size\": 6291\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d21557d7-2bd5-48e7-817c-19f921787705",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "US"
+                    },
+                    {
+                      "key": "includeBundles",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includePin",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1995-06-09T04:11:17.951Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45b062e5-0034-481b-a1ae-355bf3463e9b",
+          "name": "Get Operator",
+          "request": {
+            "name": "Get Operator",
+            "description": {
+              "content": "Retrieve details for a specific mobile network operator including coverage, denominations, and FX exchange rate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operatorId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "operatorId",
+                  "description": "(Required) Unique identifier of the operator"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16d045ec-7049-49ba-ab44-e62f1fcc4704",
+              "name": "Operator details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operatorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "operatorId",
+                      "description": "(Required) Unique identifier of the operator"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operatorId\": 4389,\n  \"name\": \"string\",\n  \"bundle\": true,\n  \"data\": true,\n  \"pin\": true,\n  \"denominationType\": \"FIXED\",\n  \"localFixedAmounts\": [\n    9044.825054409075,\n    7719.553901860201\n  ],\n  \"internationalFixedAmounts\": [\n    8558.288483434988,\n    5899.818620063967\n  ],\n  \"localMinAmount\": 7236.4866385287905,\n  \"localMaxAmount\": 8542.362761096138,\n  \"internationalMinAmount\": 806.5129346607936,\n  \"internationalMaxAmount\": 903.3006235618601,\n  \"country\": {\n    \"isoName\": \"string\",\n    \"name\": \"string\"\n  },\n  \"fxRate\": {\n    \"currencyCode\": \"string\",\n    \"rate\": 8828.699363696176\n  },\n  \"logoUrls\": [\n    \"https://pOZvyyejRMGLyrbTcnvlPwunmiqTXdoS.jvKPwoJbw8Q2K+7zdGgb0F1F1u.HEcWH.f\",\n    \"https://NiGHqNrMwWYIwATcABZjezLwiCWu.pouqtjA,X5eNnUqGgqCh\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96e9d496-93e7-43a3-bd14-3dfb62785663",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operatorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "operatorId",
+                      "description": "(Required) Unique identifier of the operator"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1995-06-09T04:11:17.951Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c54f39d3-0b82-4979-a2ec-3a8a4301366b",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operatorId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "operatorId",
+                      "description": "(Required) Unique identifier of the operator"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1995-06-09T04:11:17.951Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e72ce7b7-b03e-4d2e-ac15-4ba1b812655d",
+          "name": "Auto-Detect Operator",
+          "request": {
+            "name": "Auto-Detect Operator",
+            "description": {
+              "content": "Automatically detect the mobile network operator for a phone number in a given country. Returns the detected operator with confidence score.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                "auto-detect",
+                "phone",
+                ":phone",
+                "countries",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "suggestedAmounts",
+                  "value": "<boolean>",
+                  "description": "Include suggested top-up amounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "suggestedAmountsMap",
+                  "value": "<boolean>",
+                  "description": "Include suggested amounts as a map"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone",
+                  "description": "(Required) Phone number in E.164 format (without leading +)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) ISO 3166-1 alpha-2 country code"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6aaed31-6762-480a-a799-5e23f5678a04",
+              "name": "Detected operator",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    "auto-detect",
+                    "phone",
+                    ":phone",
+                    "countries",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suggestedAmounts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "suggestedAmountsMap",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone",
+                      "description": "(Required) Phone number in E.164 format (without leading +)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-1 alpha-2 country code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operatorId\": 4389,\n  \"name\": \"string\",\n  \"bundle\": true,\n  \"data\": true,\n  \"pin\": true,\n  \"denominationType\": \"FIXED\",\n  \"localFixedAmounts\": [\n    9044.825054409075,\n    7719.553901860201\n  ],\n  \"internationalFixedAmounts\": [\n    8558.288483434988,\n    5899.818620063967\n  ],\n  \"localMinAmount\": 7236.4866385287905,\n  \"localMaxAmount\": 8542.362761096138,\n  \"internationalMinAmount\": 806.5129346607936,\n  \"internationalMaxAmount\": 903.3006235618601,\n  \"country\": {\n    \"isoName\": \"string\",\n    \"name\": \"string\"\n  },\n  \"fxRate\": {\n    \"currencyCode\": \"string\",\n    \"rate\": 8828.699363696176\n  },\n  \"logoUrls\": [\n    \"https://pOZvyyejRMGLyrbTcnvlPwunmiqTXdoS.jvKPwoJbw8Q2K+7zdGgb0F1F1u.HEcWH.f\",\n    \"https://NiGHqNrMwWYIwATcABZjezLwiCWu.pouqtjA,X5eNnUqGgqCh\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d95273cd-2236-4d58-a486-68ea1c2c8570",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    "auto-detect",
+                    "phone",
+                    ":phone",
+                    "countries",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suggestedAmounts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "suggestedAmountsMap",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone",
+                      "description": "(Required) Phone number in E.164 format (without leading +)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-1 alpha-2 country code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1995-06-09T04:11:17.951Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "caf196dd-08bd-483e-8277-79900fcd9ccd",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    "auto-detect",
+                    "phone",
+                    ":phone",
+                    "countries",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suggestedAmounts",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "suggestedAmountsMap",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone",
+                      "description": "(Required) Phone number in E.164 format (without leading +)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-1 alpha-2 country code"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeStamp\": \"1995-06-09T04:11:17.951Z\",\n  \"message\": \"string\",\n  \"path\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://topups.reloadly.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9ee17ea6-f30f-4151-b18e-fb35d48a0593",
+    "name": "Reloadly Airtime Authentication Operators API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.\n\nContact Support:\n Name: Reloadly Support",
+      "type": "text/plain"
+    }
+  }
+}
