@@ -54,6 +54,8 @@ apis:
   humanURL: https://www.reloadly.com/products/gift-card-api
   baseURL: https://giftcards.reloadly.com
   tags:
+  - Balances
+  tags_raw:
   - Balance
   properties:
   - type: OpenAPI
@@ -102,6 +104,8 @@ apis:
   humanURL: https://www.reloadly.com/products/gift-card-api
   baseURL: https://giftcards.reloadly.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -118,6 +122,8 @@ apis:
   humanURL: https://www.reloadly.com/products/gift-card-api
   baseURL: https://giftcards.reloadly.com
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -150,6 +156,8 @@ apis:
   humanURL: https://www.reloadly.com/products/gift-card-api
   baseURL: https://giftcards.reloadly.com
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
