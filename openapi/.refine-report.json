@@ -1,28 +1,38 @@
 {
   "provider": "reloadly",
   "sources": [
-    "reloadly-authentication-api-openapi.yml",
-    "reloadly-balance-api-openapi.yml",
-    "reloadly-discounts-api-openapi.yml",
-    "reloadly-operators-api-openapi.yml",
-    "reloadly-orders-api-openapi.yml",
-    "reloadly-products-api-openapi.yml",
-    "reloadly-top-ups-api-openapi.yml",
-    "reloadly-transactions-api-openapi.yml"
+    "_original/reloadly-airtime-openapi.yml",
+    "_original/reloadly-gift-cards-openapi.yml"
   ],
   "outputs": [
     "reloadly-authentication-api-openapi.yml",
     "reloadly-balance-api-openapi.yml",
-    "reloadly-discounts-api-openapi.yml",
     "reloadly-operators-api-openapi.yml",
-    "reloadly-orders-api-openapi.yml",
-    "reloadly-products-api-openapi.yml",
     "reloadly-top-ups-api-openapi.yml",
-    "reloadly-transactions-api-openapi.yml"
+    "reloadly-transactions-api-openapi.yml",
+    "reloadly-discounts-api-openapi.yml",
+    "reloadly-orders-api-openapi.yml",
+    "reloadly-products-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "reloadly-airtime-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "reloadly-gift-cards-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Authentication' spans 2 source specs (reloadly-airtime-openapi.yml, reloadly-gift-cards-openapi.yml): per-path servers applied",
+    "tag 'Balance' spans 2 source specs (reloadly-airtime-openapi.yml, reloadly-gift-cards-openapi.yml): per-path servers applied",
+    "tag 'Transactions' spans 2 source specs (reloadly-airtime-openapi.yml, reloadly-gift-cards-openapi.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "reloadly-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-balance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-discounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-operators-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-top-ups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "reloadly-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

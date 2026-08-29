@@ -1,16 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Reloadly Airtime Authentication Balance API
-  description: The Reloadly Airtime API enables businesses to programmatically deliver mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. The API supports both operator-specific and auto-detect top-ups, with real-time fulfillment and detailed transaction reporting. Authentication uses OAuth 2.0 client credentials with separate sandbox and production environments.
+  title: Reloadly Balance API
   version: 1.0.0
   contact:
     name: Reloadly Support
     url: https://support.reloadly.com
   termsOfService: https://www.reloadly.com/terms
+  description: 'Operations tagged Balance across 2 of this provider''s published API definitions: reloadly-airtime-openapi.yml, reloadly-gift-cards-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://topups.reloadly.com
   description: Production Server
 - url: https://topups-sandbox.reloadly.com
+  description: Sandbox Server
+- url: https://giftcards.reloadly.com
+  description: Production Server
+- url: https://giftcards-sandbox.reloadly.com
   description: Sandbox Server
 security:
 - bearerAuth: []
@@ -34,19 +38,20 @@ paths:
                 $ref: '#/components/schemas/Balance'
         '401':
           $ref: '#/components/responses/Unauthorized'
+    servers:
+    - url: https://topups.reloadly.com
+      description: Production Server
+    - url: https://topups-sandbox.reloadly.com
+      description: Sandbox Server
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Balance:
-      type: object
-      properties:
-        balance:
-          type: number
-          format: double
-        currencyCode:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
     Error:
       type: object
       properties:
@@ -59,19 +64,51 @@ components:
           type: string
         errorCode:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Balance:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: double
+        currencyCode:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    Error_2:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
+    Balance_2:
+      type: object
+      properties:
+        balance:
+          type: number
+          format: double
+          description: Available account balance
+        currencyCode:
+          type: string
+          description: Currency code for the balance
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the balance was last updated
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
       description: OAuth 2.0 bearer token obtained via the /oauth/token endpoint using client credentials grant.
-externalDocs:
-  description: Reloadly Airtime API Reference
-  url: https://docs.reloadly.com/airtime
+x-refined-from:
+- reloadly-airtime-openapi.yml
+- reloadly-gift-cards-openapi.yml
