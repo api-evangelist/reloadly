@@ -101,6 +101,8 @@ apis:
   humanURL: https://www.reloadly.com/products/gift-card-api
   baseURL: https://giftcards.reloadly.com
   tags:
+  - Operator
+  tags_raw:
   - Operators
   properties:
   - type: OpenAPI
