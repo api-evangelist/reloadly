@@ -125,6 +125,19 @@ paths:
     - url: https://giftcards-sandbox.reloadly.com
       description: Sandbox Server
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PageParam:
       name: page
@@ -144,23 +157,6 @@ components:
         maximum: 200
         default: 25
   schemas:
-    TransactionsPage:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/TopUpTransaction'
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        last:
-          type: boolean
-        number:
-          type: integer
-        size:
-          type: integer
     TopUpTransaction:
       type: object
       properties:
@@ -216,6 +212,54 @@ components:
           type: string
         errorCode:
           type: string
+    TransactionsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopUpTransaction'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
     Product:
       type: object
       properties:
@@ -279,6 +323,20 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
+    Error_2:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
     TransactionsPage_2:
       type: object
       properties:
@@ -296,42 +354,6 @@ components:
           type: integer
         size:
           type: integer
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-        flagUrl:
-          type: string
-          format: uri
-          description: URL to the country flag image
-    RedeemInstruction:
-      type: object
-      properties:
-        concise:
-          type: string
-          description: Brief redemption instructions
-        verbose:
-          type: string
-          description: Detailed redemption instructions
-    Error_2:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-        infoLink:
-          type: string
     Transaction:
       type: object
       properties:
@@ -362,28 +384,6 @@ components:
           type: string
           format: date-time
           description: Transaction timestamp
-    Brand:
-      type: object
-      properties:
-        brandId:
-          type: integer
-          description: Unique brand identifier
-        brandName:
-          type: string
-          description: Brand display name (e.g., Amazon, Apple, Netflix)
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

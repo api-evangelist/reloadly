@@ -81,6 +81,46 @@ components:
           type: integer
         size:
           type: integer
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    Discount:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        percentage:
+          type: number
+          format: double
+          description: Discount percentage on the face value
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
     Product:
       type: object
       properties:
@@ -144,28 +184,6 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-        flagUrl:
-          type: string
-          format: uri
-          description: URL to the country flag image
-    RedeemInstruction:
-      type: object
-      properties:
-        concise:
-          type: string
-          description: Brief redemption instructions
-        verbose:
-          type: string
-          description: Detailed redemption instructions
     Error:
       type: object
       properties:
@@ -180,24 +198,19 @@ components:
           type: string
         infoLink:
           type: string
-    Discount:
-      type: object
-      properties:
-        product:
-          $ref: '#/components/schemas/Product'
-        percentage:
-          type: number
-          format: double
-          description: Discount percentage on the face value
-    Brand:
-      type: object
-      properties:
-        brandId:
-          type: integer
-          description: Unique brand identifier
-        brandName:
-          type: string
-          description: Brand display name (e.g., Amazon, Apple, Netflix)
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PageParam:
       name: page
@@ -216,19 +229,6 @@ components:
         minimum: 1
         maximum: 200
         default: 25
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

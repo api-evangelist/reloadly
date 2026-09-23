@@ -71,17 +71,6 @@ components:
         audience:
           type: string
           example: https://topups.reloadly.com
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        scope:
-          type: string
-        expires_in:
-          type: integer
-        token_type:
-          type: string
     Error:
       type: object
       properties:
@@ -93,6 +82,17 @@ components:
         path:
           type: string
         errorCode:
+          type: string
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        scope:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
           type: string
     TokenRequest_2:
       type: object
@@ -117,6 +117,20 @@ components:
           type: string
           description: The API audience URL for the service you are accessing (e.g., https://giftcards.reloadly.com)
           example: https://giftcards.reloadly.com
+    Error_2:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
     TokenResponse_2:
       type: object
       properties:
@@ -132,20 +146,6 @@ components:
         token_type:
           type: string
           description: Token type (Bearer)
-    Error_2:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-        infoLink:
-          type: string
   responses:
     Unauthorized:
       description: Missing or invalid authentication token

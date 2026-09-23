@@ -69,6 +69,91 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    Order:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          description: Unique transaction identifier
+        amount:
+          type: number
+          format: double
+          description: Amount charged for the order
+        discount:
+          type: number
+          format: double
+          description: Discount amount applied
+        currencyCode:
+          type: string
+          description: Currency code for the transaction
+        fee:
+          type: number
+          format: double
+          description: Processing fee
+        recipientEmail:
+          type: string
+          format: email
+          description: Recipient email address
+        customIdentifier:
+          type: string
+          description: Custom identifier provided at order time
+        status:
+          type: string
+          description: Order status
+        product:
+          $ref: '#/components/schemas/Product'
+        smiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCard'
+          description: Array of gift card codes delivered
+        date:
+          type: string
+          format: date-time
+          description: Order timestamp
+    GiftCard:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Gift card redemption code
+        pinCode:
+          type: string
+          description: PIN code if required for redemption
+        validity:
+          type: string
+          description: Expiration date or validity information
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
     Product:
       type: object
       properties:
@@ -132,19 +217,6 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-        flagUrl:
-          type: string
-          format: uri
-          description: URL to the country flag image
     OrderRequest:
       type: object
       required:
@@ -179,15 +251,6 @@ components:
         preOrder:
           type: boolean
           description: Whether to place a pre-order
-    RedeemInstruction:
-      type: object
-      properties:
-        concise:
-          type: string
-          description: Brief redemption instructions
-        verbose:
-          type: string
-          description: Detailed redemption instructions
     Error:
       type: object
       properties:
@@ -202,72 +265,9 @@ components:
           type: string
         infoLink:
           type: string
-    Order:
-      type: object
-      properties:
-        transactionId:
-          type: integer
-          description: Unique transaction identifier
-        amount:
-          type: number
-          format: double
-          description: Amount charged for the order
-        discount:
-          type: number
-          format: double
-          description: Discount amount applied
-        currencyCode:
-          type: string
-          description: Currency code for the transaction
-        fee:
-          type: number
-          format: double
-          description: Processing fee
-        recipientEmail:
-          type: string
-          format: email
-          description: Recipient email address
-        customIdentifier:
-          type: string
-          description: Custom identifier provided at order time
-        status:
-          type: string
-          description: Order status
-        product:
-          $ref: '#/components/schemas/Product'
-        smiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCard'
-          description: Array of gift card codes delivered
-        date:
-          type: string
-          format: date-time
-          description: Order timestamp
-    GiftCard:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Gift card redemption code
-        pinCode:
-          type: string
-          description: PIN code if required for redemption
-        validity:
-          type: string
-          description: Expiration date or validity information
-    Brand:
-      type: object
-      properties:
-        brandId:
-          type: integer
-          description: Unique brand identifier
-        brandName:
-          type: string
-          description: Brand display name (e.g., Amazon, Apple, Netflix)
   responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
@@ -278,8 +278,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    Unauthorized:
+      description: Missing or invalid authentication token
       content:
         application/json:
           schema:

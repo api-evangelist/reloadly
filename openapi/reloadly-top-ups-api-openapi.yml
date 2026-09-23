@@ -15,7 +15,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Top-Ups
+- name: Top Ups
   description: Send airtime top-ups to mobile phones worldwide.
 paths:
   /topups:
@@ -24,7 +24,7 @@ paths:
       summary: Send Top-Up
       description: Send an airtime top-up to a mobile phone. Specify the operator ID or let the API auto-detect it from the phone number and country. Returns a transaction object with delivery confirmation.
       tags:
-      - Top-Ups
+      - Top Ups
       requestBody:
         required: true
         content:
@@ -44,18 +44,33 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Phone:
+    TopUpRequest:
       type: object
       required:
-      - countryCode
-      - number
+      - operatorId
+      - amount
+      - useLocalAmount
+      - customIdentifier
+      - recipientPhone
+      - senderPhone
       properties:
-        countryCode:
+        operatorId:
+          type: integer
+          description: Target mobile network operator ID
+        amount:
+          type: number
+          format: double
+          description: Top-up amount
+        useLocalAmount:
+          type: boolean
+          description: Whether amount is in local currency or international (USD)
+        customIdentifier:
           type: string
-          description: ISO 3166-1 alpha-2 country code
-        number:
-          type: string
-          description: Phone number in E.164 format (without leading +)
+          description: Custom reference identifier for tracking
+        recipientPhone:
+          $ref: '#/components/schemas/Phone'
+        senderPhone:
+          $ref: '#/components/schemas/Phone'
     TopUpTransaction:
       type: object
       properties:
@@ -99,6 +114,18 @@ components:
         transactionDate:
           type: string
           format: date-time
+    Phone:
+      type: object
+      required:
+      - countryCode
+      - number
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        number:
+          type: string
+          description: Phone number in E.164 format (without leading +)
     Error:
       type: object
       properties:
@@ -111,42 +138,15 @@ components:
           type: string
         errorCode:
           type: string
-    TopUpRequest:
-      type: object
-      required:
-      - operatorId
-      - amount
-      - useLocalAmount
-      - customIdentifier
-      - recipientPhone
-      - senderPhone
-      properties:
-        operatorId:
-          type: integer
-          description: Target mobile network operator ID
-        amount:
-          type: number
-          format: double
-          description: Top-up amount
-        useLocalAmount:
-          type: boolean
-          description: Whether amount is in local currency or international (USD)
-        customIdentifier:
-          type: string
-          description: Custom reference identifier for tracking
-        recipientPhone:
-          $ref: '#/components/schemas/Phone'
-        senderPhone:
-          $ref: '#/components/schemas/Phone'
   responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    Unauthorized:
+      description: Missing or invalid authentication token
       content:
         application/json:
           schema:

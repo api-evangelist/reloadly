@@ -137,23 +137,6 @@ components:
         name:
           type: string
           description: Country display name
-    OperatorsPage:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Operator'
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        last:
-          type: boolean
-        number:
-          type: integer
-        size:
-          type: integer
     Operator:
       type: object
       properties:
@@ -209,6 +192,33 @@ components:
             type: string
             format: uri
           description: Operator logo image URLs
+    FxRate:
+      type: object
+      properties:
+        currencyCode:
+          type: string
+          description: Local currency code
+        rate:
+          type: number
+          format: double
+          description: Exchange rate from USD to local currency
+    OperatorsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operator'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
     Error:
       type: object
       properties:
@@ -221,16 +231,19 @@ components:
           type: string
         errorCode:
           type: string
-    FxRate:
-      type: object
-      properties:
-        currencyCode:
-          type: string
-          description: Local currency code
-        rate:
-          type: number
-          format: double
-          description: Exchange rate from USD to local currency
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PageParam:
       name: page
@@ -249,19 +262,6 @@ components:
         minimum: 1
         maximum: 200
         default: 25
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
