@@ -86,19 +86,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-        flagUrl:
-          type: string
-          format: uri
-          description: URL to the country flag image
     RedeemInstruction:
       type: object
       properties:
@@ -108,15 +95,6 @@ components:
         verbose:
           type: string
           description: Detailed redemption instructions
-    Brand:
-      type: object
-      properties:
-        brandId:
-          type: integer
-          description: Unique brand identifier
-        brandName:
-          type: string
-          description: Brand display name (e.g., Amazon, Apple, Netflix)
     Product:
       type: object
       properties:
@@ -180,6 +158,42 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
     ProductsPage:
       type: object
       properties:
@@ -197,33 +211,6 @@ components:
           type: integer
         size:
           type: integer
-    Error:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-        infoLink:
-          type: string
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     PageParam:
       name: page
@@ -242,6 +229,19 @@ components:
         minimum: 1
         maximum: 200
         default: 25
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

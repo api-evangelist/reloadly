@@ -44,6 +44,13 @@ paths:
     - url: https://topups-sandbox.reloadly.com
       description: Sandbox Server
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Balance:
       type: object
@@ -96,13 +103,6 @@ components:
           type: string
         infoLink:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

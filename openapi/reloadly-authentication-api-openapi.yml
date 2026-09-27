@@ -51,7 +51,37 @@ paths:
     - url: https://topups-sandbox.reloadly.com
       description: Sandbox Server
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        scope:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
+          type: string
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
     TokenRequest:
       type: object
       required:
@@ -71,7 +101,22 @@ components:
         audience:
           type: string
           example: https://topups.reloadly.com
-    Error:
+    TokenResponse_2:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The OAuth 2.0 bearer access token
+        scope:
+          type: string
+          description: Granted OAuth scopes
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+        token_type:
+          type: string
+          description: Token type (Bearer)
+    Error_2:
       type: object
       properties:
         timeStamp:
@@ -83,16 +128,7 @@ components:
           type: string
         errorCode:
           type: string
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        scope:
-          type: string
-        expires_in:
-          type: integer
-        token_type:
+        infoLink:
           type: string
     TokenRequest_2:
       type: object
@@ -117,42 +153,6 @@ components:
           type: string
           description: The API audience URL for the service you are accessing (e.g., https://giftcards.reloadly.com)
           example: https://giftcards.reloadly.com
-    Error_2:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-        infoLink:
-          type: string
-    TokenResponse_2:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: The OAuth 2.0 bearer access token
-        scope:
-          type: string
-          description: Granted OAuth scopes
-        expires_in:
-          type: integer
-          description: Token expiration time in seconds
-        token_type:
-          type: string
-          description: Token type (Bearer)
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
