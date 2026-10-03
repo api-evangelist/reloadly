@@ -85,16 +85,55 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    RedeemInstruction:
+    ProductsPage:
       type: object
       properties:
-        concise:
-          type: string
-          description: Brief redemption instructions
-        verbose:
-          type: string
-          description: Detailed redemption instructions
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
     Product:
       type: object
       properties:
@@ -158,19 +197,6 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-        flagUrl:
-          type: string
-          format: uri
-          description: URL to the country flag image
     Error:
       type: object
       properties:
@@ -194,54 +220,28 @@ components:
         brandName:
           type: string
           description: Brand display name (e.g., Amazon, Apple, Netflix)
-    ProductsPage:
+    Country:
       type: object
       properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        last:
-          type: boolean
-        number:
-          type: integer
-        size:
-          type: integer
-  parameters:
-    PageParam:
-      name: page
-      in: query
-      description: Page number (1-based)
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    SizeParam:
-      name: size
-      in: query
-      description: Number of results per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 200
-        default: 25
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
   securitySchemes:
     bearerAuth:
       type: http

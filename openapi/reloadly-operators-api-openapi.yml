@@ -127,69 +127,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    PageParam:
-      name: page
-      in: query
-      description: Page number (1-based)
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    SizeParam:
-      name: size
-      in: query
-      description: Number of results per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 200
-        default: 25
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-    Error:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-    FxRate:
-      type: object
-      properties:
-        currencyCode:
-          type: string
-          description: Local currency code
-        rate:
-          type: number
-          format: double
-          description: Exchange rate from USD to local currency
     Operator:
       type: object
       properties:
@@ -245,6 +183,37 @@ components:
             type: string
             format: uri
           description: Operator logo image URLs
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+    Country:
+      type: object
+      properties:
+        isoName:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+    FxRate:
+      type: object
+      properties:
+        currencyCode:
+          type: string
+          description: Local currency code
+        rate:
+          type: number
+          format: double
+          description: Exchange rate from USD to local currency
     OperatorsPage:
       type: object
       properties:
@@ -262,6 +231,37 @@ components:
           type: integer
         size:
           type: integer
+  parameters:
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

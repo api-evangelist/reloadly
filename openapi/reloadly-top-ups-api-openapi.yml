@@ -44,6 +44,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
     TopUpTransaction:
       type: object
       properties:
@@ -87,18 +99,18 @@ components:
         transactionDate:
           type: string
           format: date-time
-    Error:
+    Phone:
       type: object
+      required:
+      - countryCode
+      - number
       properties:
-        timeStamp:
+        countryCode:
           type: string
-          format: date-time
-        message:
+          description: ISO 3166-1 alpha-2 country code
+        number:
           type: string
-        path:
-          type: string
-        errorCode:
-          type: string
+          description: Phone number in E.164 format (without leading +)
     TopUpRequest:
       type: object
       required:
@@ -126,18 +138,6 @@ components:
           $ref: '#/components/schemas/Phone'
         senderPhone:
           $ref: '#/components/schemas/Phone'
-    Phone:
-      type: object
-      required:
-      - countryCode
-      - number
-      properties:
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        number:
-          type: string
-          description: Phone number in E.164 format (without leading +)
   responses:
     Unauthorized:
       description: Missing or invalid authentication token

@@ -69,15 +69,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    RedeemInstruction:
+    GiftCard:
       type: object
       properties:
-        concise:
+        code:
           type: string
-          description: Brief redemption instructions
-        verbose:
+          description: Gift card redemption code
+        pinCode:
           type: string
-          description: Detailed redemption instructions
+          description: PIN code if required for redemption
+        validity:
+          type: string
+          description: Expiration date or validity information
     Product:
       type: object
       properties:
@@ -141,53 +144,6 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
-    Country:
-      type: object
-      properties:
-        isoName:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-        flagUrl:
-          type: string
-          format: uri
-          description: URL to the country flag image
-    OrderRequest:
-      type: object
-      required:
-      - productId
-      - quantity
-      - unitPrice
-      - senderName
-      - recipientEmail
-      properties:
-        productId:
-          type: integer
-          description: ID of the gift card product to order
-        quantity:
-          type: integer
-          description: Number of gift cards to order
-          minimum: 1
-          maximum: 100
-        unitPrice:
-          type: number
-          format: double
-          description: Price per gift card in sender currency
-        customIdentifier:
-          type: string
-          description: Custom reference identifier for the order
-        senderName:
-          type: string
-          description: Name of the sender
-        recipientEmail:
-          type: string
-          format: email
-          description: Email address of the recipient
-        preOrder:
-          type: boolean
-          description: Whether to place a pre-order
     Error:
       type: object
       properties:
@@ -202,18 +158,28 @@ components:
           type: string
         infoLink:
           type: string
-    GiftCard:
+    Brand:
       type: object
       properties:
-        code:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
           type: string
-          description: Gift card redemption code
-        pinCode:
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
+    Country:
+      type: object
+      properties:
+        isoName:
           type: string
-          description: PIN code if required for redemption
-        validity:
+          description: ISO 3166-1 alpha-2 country code
+        name:
           type: string
-          description: Expiration date or validity information
+          description: Country display name
+        flagUrl:
+          type: string
+          format: uri
+          description: URL to the country flag image
     Order:
       type: object
       properties:
@@ -256,24 +222,58 @@ components:
           type: string
           format: date-time
           description: Order timestamp
-    Brand:
+    RedeemInstruction:
       type: object
       properties:
-        brandId:
-          type: integer
-          description: Unique brand identifier
-        brandName:
+        concise:
           type: string
-          description: Brand display name (e.g., Amazon, Apple, Netflix)
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
+    OrderRequest:
+      type: object
+      required:
+      - productId
+      - quantity
+      - unitPrice
+      - senderName
+      - recipientEmail
+      properties:
+        productId:
+          type: integer
+          description: ID of the gift card product to order
+        quantity:
+          type: integer
+          description: Number of gift cards to order
+          minimum: 1
+          maximum: 100
+        unitPrice:
+          type: number
+          format: double
+          description: Price per gift card in sender currency
+        customIdentifier:
+          type: string
+          description: Custom reference identifier for the order
+        senderName:
+          type: string
+          description: Name of the sender
+        recipientEmail:
+          type: string
+          format: email
+          description: Email address of the recipient
+        preOrder:
+          type: boolean
+          description: Whether to place a pre-order
   responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
+    NotFound:
+      description: Requested resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
+    Unauthorized:
+      description: Missing or invalid authentication token
       content:
         application/json:
           schema:

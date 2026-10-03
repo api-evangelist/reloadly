@@ -126,6 +126,35 @@ paths:
       description: Sandbox Server
 components:
   schemas:
+    TransactionsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopUpTransaction'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
+    Error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
     TopUpTransaction:
       type: object
       properties:
@@ -169,25 +198,13 @@ components:
         transactionDate:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-    TransactionsPage:
+    TransactionsPage_2:
       type: object
       properties:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/TopUpTransaction'
+            $ref: '#/components/schemas/Transaction'
         totalElements:
           type: integer
         totalPages:
@@ -198,15 +215,6 @@ components:
           type: integer
         size:
           type: integer
-    RedeemInstruction:
-      type: object
-      properties:
-        concise:
-          type: string
-          description: Brief redemption instructions
-        verbose:
-          type: string
-          description: Detailed redemption instructions
     Product:
       type: object
       properties:
@@ -270,6 +278,29 @@ components:
           $ref: '#/components/schemas/Country'
         redeemInstruction:
           $ref: '#/components/schemas/RedeemInstruction'
+    Brand:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Unique brand identifier
+        brandName:
+          type: string
+          description: Brand display name (e.g., Amazon, Apple, Netflix)
+    Error_2:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
     Country:
       type: object
       properties:
@@ -283,6 +314,15 @@ components:
           type: string
           format: uri
           description: URL to the country flag image
+    RedeemInstruction:
+      type: object
+      properties:
+        concise:
+          type: string
+          description: Brief redemption instructions
+        verbose:
+          type: string
+          description: Detailed redemption instructions
     Transaction:
       type: object
       properties:
@@ -313,55 +353,7 @@ components:
           type: string
           format: date-time
           description: Transaction timestamp
-    Error_2:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
-        infoLink:
-          type: string
-    Brand:
-      type: object
-      properties:
-        brandId:
-          type: integer
-          description: Unique brand identifier
-        brandName:
-          type: string
-          description: Brand display name (e.g., Amazon, Apple, Netflix)
-    TransactionsPage_2:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        last:
-          type: boolean
-        number:
-          type: integer
-        size:
-          type: integer
   parameters:
-    PageParam:
-      name: page
-      in: query
-      description: Page number (1-based)
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     SizeParam:
       name: size
       in: query
@@ -371,15 +363,23 @@ components:
         minimum: 1
         maximum: 200
         default: 25
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
+    NotFound:
+      description: Requested resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
+    Unauthorized:
+      description: Missing or invalid authentication token
       content:
         application/json:
           schema:
