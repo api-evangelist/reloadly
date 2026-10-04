@@ -51,33 +51,7 @@ paths:
     - url: https://topups-sandbox.reloadly.com
       description: Sandbox Server
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    TokenRequest:
-      type: object
-      required:
-      - client_id
-      - client_secret
-      - grant_type
-      - audience
-      properties:
-        client_id:
-          type: string
-        client_secret:
-          type: string
-        grant_type:
-          type: string
-          enum:
-          - client_credentials
-        audience:
-          type: string
-          example: https://topups.reloadly.com
     TokenResponse:
       type: object
       properties:
@@ -101,7 +75,7 @@ components:
           type: string
         errorCode:
           type: string
-    TokenRequest_2:
+    TokenRequest:
       type: object
       required:
       - client_id
@@ -111,19 +85,15 @@ components:
       properties:
         client_id:
           type: string
-          description: Your Reloadly API client ID
         client_secret:
           type: string
-          description: Your Reloadly API client secret
         grant_type:
           type: string
           enum:
           - client_credentials
-          description: OAuth 2.0 grant type
         audience:
           type: string
-          description: The API audience URL for the service you are accessing (e.g., https://giftcards.reloadly.com)
-          example: https://giftcards.reloadly.com
+          example: https://topups.reloadly.com
     TokenResponse_2:
       type: object
       properties:
@@ -153,6 +123,36 @@ components:
           type: string
         infoLink:
           type: string
+    TokenRequest_2:
+      type: object
+      required:
+      - client_id
+      - client_secret
+      - grant_type
+      - audience
+      properties:
+        client_id:
+          type: string
+          description: Your Reloadly API client ID
+        client_secret:
+          type: string
+          description: Your Reloadly API client secret
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+          description: OAuth 2.0 grant type
+        audience:
+          type: string
+          description: The API audience URL for the service you are accessing (e.g., https://giftcards.reloadly.com)
+          example: https://giftcards.reloadly.com
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

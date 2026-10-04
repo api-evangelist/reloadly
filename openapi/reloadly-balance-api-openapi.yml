@@ -45,18 +45,6 @@ paths:
       description: Sandbox Server
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        timeStamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        path:
-          type: string
-        errorCode:
-          type: string
     Balance:
       type: object
       properties:
@@ -68,7 +56,7 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Error_2:
+    Error:
       type: object
       properties:
         timeStamp:
@@ -79,8 +67,6 @@ components:
         path:
           type: string
         errorCode:
-          type: string
-        infoLink:
           type: string
     Balance_2:
       type: object
@@ -96,6 +82,20 @@ components:
           type: string
           format: date-time
           description: When the balance was last updated
+    Error_2:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        path:
+          type: string
+        errorCode:
+          type: string
+        infoLink:
+          type: string
   responses:
     Unauthorized:
       description: Missing or invalid authentication token

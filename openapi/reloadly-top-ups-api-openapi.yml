@@ -43,19 +43,59 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    Phone:
       type: object
+      required:
+      - countryCode
+      - number
       properties:
-        timeStamp:
+        countryCode:
           type: string
-          format: date-time
-        message:
+          description: ISO 3166-1 alpha-2 country code
+        number:
           type: string
-        path:
+          description: Phone number in E.164 format (without leading +)
+    TopUpRequest:
+      type: object
+      required:
+      - operatorId
+      - amount
+      - useLocalAmount
+      - customIdentifier
+      - recipientPhone
+      - senderPhone
+      properties:
+        operatorId:
+          type: integer
+          description: Target mobile network operator ID
+        amount:
+          type: number
+          format: double
+          description: Top-up amount
+        useLocalAmount:
+          type: boolean
+          description: Whether amount is in local currency or international (USD)
+        customIdentifier:
           type: string
-        errorCode:
-          type: string
+          description: Custom reference identifier for tracking
+        recipientPhone:
+          $ref: '#/components/schemas/Phone'
+        senderPhone:
+          $ref: '#/components/schemas/Phone'
     TopUpTransaction:
       type: object
       properties:
@@ -99,58 +139,18 @@ components:
         transactionDate:
           type: string
           format: date-time
-    Phone:
+    Error:
       type: object
-      required:
-      - countryCode
-      - number
       properties:
-        countryCode:
+        timeStamp:
           type: string
-          description: ISO 3166-1 alpha-2 country code
-        number:
+          format: date-time
+        message:
           type: string
-          description: Phone number in E.164 format (without leading +)
-    TopUpRequest:
-      type: object
-      required:
-      - operatorId
-      - amount
-      - useLocalAmount
-      - customIdentifier
-      - recipientPhone
-      - senderPhone
-      properties:
-        operatorId:
-          type: integer
-          description: Target mobile network operator ID
-        amount:
-          type: number
-          format: double
-          description: Top-up amount
-        useLocalAmount:
-          type: boolean
-          description: Whether amount is in local currency or international (USD)
-        customIdentifier:
+        path:
           type: string
-          description: Custom reference identifier for tracking
-        recipientPhone:
-          $ref: '#/components/schemas/Phone'
-        senderPhone:
-          $ref: '#/components/schemas/Phone'
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        errorCode:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http
