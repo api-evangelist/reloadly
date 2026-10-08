@@ -185,6 +185,12 @@ apis:
   - type: Documentation
     url: https://docs.reloadly.com/airtime
 common:
+  - type: Plans
+    url: plans/reloadly-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/reloadly-rate-limits.yml
+  - type: FinOps
+    url: finops/reloadly-finops.yml
   - type: AgenticAccess
     url: agentic-access/reloadly-agentic-access.yml
   - type: DomainSecurity
