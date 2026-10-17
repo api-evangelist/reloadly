@@ -64,23 +64,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    DiscountsPage:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Discount'
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        last:
-          type: boolean
-        number:
-          type: integer
-        size:
-          type: integer
     Country:
       type: object
       properties:
@@ -112,6 +95,23 @@ components:
         brandName:
           type: string
           description: Brand display name (e.g., Amazon, Apple, Netflix)
+    DiscountsPage:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        last:
+          type: boolean
+        number:
+          type: integer
+        size:
+          type: integer
     Product:
       type: object
       properties:
@@ -198,19 +198,6 @@ components:
           type: string
         infoLink:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     PageParam:
       name: page
@@ -229,6 +216,19 @@ components:
         minimum: 1
         maximum: 200
         default: 25
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
