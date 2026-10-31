@@ -1,4 +1,4 @@
-# Reloadly (reloadly)
+# Reloadly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,84 +66,173 @@
 
 Reloadly is a global digital rewards and payments platform providing APIs for sending digital gift cards, airtime top-ups, and data bundles worldwide. The platform connects businesses to 3,000+ gift card brands across 14,000+ products in 140+ countries and 800+ mobile operators in 170+ countries. Reloadly's REST APIs use OAuth 2.0 client credentials authentication with separate sandbox and production environments.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/reloadly/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/reloadly/refs/heads/main/apis.yml)
+**Areas:** Gift Cards · Payments · Airtime · Mobile Top-Up · Rewards · Incentives · Loyalty & Incentives
 
-## Scope
+## Reloadly on APIs.io
 
-- **Type:** Index
+Everything profiled for Reloadly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/reloadly/](https://apis.io/providers/reloadly/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Gift Cards
-- Payments
-- Airtime
-- Mobile Top-Up
-- Rewards
-- Incentives
+- [Reloadly Authentication API](https://apis.io/apis/reloadly/reloadly-authentication-api/) — Obtain OAuth 2.0 access tokens for API authorization.
+- [Reloadly Balance API](https://apis.io/apis/reloadly/reloadly-balance-api/) — Check your Reloadly account balance.
+- [Reloadly Discounts API](https://apis.io/apis/reloadly/reloadly-discounts-api/) — Retrieve discount rates available on gift card products.
+- [Reloadly Operators API](https://apis.io/apis/reloadly/reloadly-operators-api/) — Browse mobile network operators and their coverage.
+- [Reloadly Orders API](https://apis.io/apis/reloadly/reloadly-orders-api/) — Place and manage gift card orders.
+- [Reloadly Products API](https://apis.io/apis/reloadly/reloadly-products-api/) — Browse and search the gift card product catalog.
+- [Reloadly Top-Ups API](https://apis.io/apis/reloadly/reloadly-top-ups-api/) — Send airtime top-ups to mobile phones worldwide.
+- [Reloadly Transactions API](https://apis.io/apis/reloadly/reloadly-transactions-api/) — List and retrieve top-up transaction history.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-08
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Reloadly Gift Cards API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Order and manage digital gift cards across 3,000+ global brands including Amazon, Apple, Netflix, Spotify, and Uber. Supports 14,000+ products in 140+ countries with multi-currency payouts and real-time fulfillment.
+- [Reloadly Agentic Access](https://apis.io/agentic-access/reloadly/reloadly-agentic-access/)
 
-- **Human URL:** [https://www.reloadly.com/products/gift-card-api](https://www.reloadly.com/products/gift-card-api)
-- **Base URL:** `https://giftcards.reloadly.com`
+#### JSON Schema (2)
 
-#### Tags
+The data models the API reads and writes.
 
-- Gift Cards
-- Rewards
-- Payments
+- [Reloadly Gift Card Order](https://apis.io/schemas/reloadly/reloadly-order/)
+- [Reloadly Gift Card Product](https://apis.io/schemas/reloadly/reloadly-product/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://docs.reloadly.com/gift-cards)
-- [OpenAPI](openapi/reloadly-gift-cards-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/reloadly-gift-cards.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/reloadly-gift-cards.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://docs.reloadly.com/gift-cards/tag/Authentication)
+Data models expressed in JSON Structure.
 
-### Reloadly Airtime API
+- [Reloadly Product Structure](https://apis.io/json-structure/reloadly/reloadly-product-structure/)
 
-Send mobile airtime top-ups and data bundles to phones across 170+ countries and 800+ mobile operators. Supports auto-detection of mobile operators from phone numbers with real-time fulfillment and FX conversion.
+#### JSON-LD (1)
 
-- **Human URL:** [https://www.reloadly.com/products/airtime-api](https://www.reloadly.com/products/airtime-api)
-- **Base URL:** `https://topups.reloadly.com`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Reloadly Context](https://apis.io/jsonld/reloadly/reloadly-context/)
 
-- Airtime
-- Mobile Top-Up
-- Data Bundles
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://docs.reloadly.com/airtime)
-- [OpenAPI](openapi/reloadly-airtime-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/reloadly-airtime.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/reloadly-airtime.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Reloadly Vocabulary](https://apis.io/vocabularies/reloadly/reloadly-vocabulary/)
 
-## Common Properties
+#### Examples (3)
+
+Example requests and responses.
+
+- [Reloadly List Products Example](https://apis.io/examples/reloadly/reloadly-list-products-example/)
+- [Reloadly Place Order Example](https://apis.io/examples/reloadly/reloadly-place-order-example/)
+- [Reloadly Send Topup Example](https://apis.io/examples/reloadly/reloadly-send-topup-example/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [Reloadly Airtime API](https://apis.io/collections/reloadly/open-reloadly-airtime/)
+- [Reloadly Airtime Authentication API](https://apis.io/collections/reloadly/open-reloadly-authentication-api/)
+- [Reloadly Airtime Authentication Balance API](https://apis.io/collections/reloadly/open-reloadly-balance-api/)
+- [Reloadly Airtime Authentication Discounts API](https://apis.io/collections/reloadly/open-reloadly-discounts-api/)
+- [Reloadly Gift Cards API](https://apis.io/collections/reloadly/open-reloadly-gift-cards/)
+- [Reloadly Airtime Authentication Operators API](https://apis.io/collections/reloadly/open-reloadly-operators-api/)
+- [Reloadly Airtime Authentication Orders API](https://apis.io/collections/reloadly/open-reloadly-orders-api/)
+- [Reloadly Airtime Authentication Products API](https://apis.io/collections/reloadly/open-reloadly-products-api/)
+- [Reloadly Airtime Authentication Top-Ups API](https://apis.io/collections/reloadly/open-reloadly-top-ups-api/)
+- [Reloadly Airtime Authentication Transactions API](https://apis.io/collections/reloadly/open-reloadly-transactions-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Reloadly — jsonschema rules](https://apis.io/rules/reloadly/reloadly-jsonschema-spectral-rules/)
+- [Reloadly API Rules](https://apis.io/rules/reloadly/reloadly-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Reloadly Authentication](https://apis.io/security/reloadly/reloadly-authentication/)
+- [Reloadly Domain Security](https://apis.io/security/reloadly/reloadly-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Reloadly Plans Pricing](https://apis.io/plans/reloadly/reloadly-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Reloadly Rate Limits](https://apis.io/rate-limits/reloadly/reloadly-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Reloadly Finops](https://apis.io/finops/reloadly/reloadly-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.reloadly.com)
 - [Documentation](https://docs.reloadly.com)
-- [Authentication](https://auth.reloadly.com/oauth/token)
-- [Dashboard](https://dashboard.reloadly.com)
-- [GitHub Organization](https://github.com/reloadly)
-- [Support](https://support.reloadly.com)
 - [Pricing](https://www.reloadly.com/pricing)
-- [Sign Up](https://www.reloadly.com/register)
-- [LinkedIn](https://www.linkedin.com/company/reloadly)
-- [Twitter](https://twitter.com/reloadly)
-- [L L Ms Txt](https://docs.reloadly.com/llms.txt)
+- [Support](https://support.reloadly.com)
+- [Blog](https://www.reloadly.com/blog/feed/)
+- [GitHub](https://github.com/reloadly)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 30.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 60.1 |
+| Contract governance | 9.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 13.1 |
+| Access clarity | 21.1 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.2** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/reloadly/](https://apis.io/providers/reloadly/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Reloadly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/reloadly/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
